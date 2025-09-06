@@ -1,0 +1,20 @@
+{
+  "name": "@hedron/web-example",
+  "version": "1.0.0-alpha.2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix"
+  },
+  "dependencies": {
+    "@fontsource/chivo-mono": "^5.2.6",
+    "@hedron/clock": "workspace:^",
+    "@hedron/engine": "workspace:^",
+    "@hedron/lfo-input": "workspace:^",
+    "three": "^0.178.0",
+    "three-stdlib": "^2.36.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.4"
+  }
+}
