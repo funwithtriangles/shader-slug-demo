@@ -11,6 +11,8 @@
     "@hedron/clock": "workspace:^",
     "@hedron/engine": "workspace:^",
     "@hedron/lfo-input": "workspace:^",
+    "@theatre/core": "^0.7.2",
+    "@theatre/studio": "^0.7.2",
     "three": "^0.178.0",
     "three-stdlib": "^2.36.0"
   },
