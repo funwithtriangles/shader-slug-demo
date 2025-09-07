@@ -35,9 +35,10 @@ export const stripesTexture = ({
   return Fn(() => {
     const t = time;
 
-    const waves = sin(positionLocal.y.mul(0.7)).mul(5);
-    const noiseStripesMap = sin(positionLocal.x.mul(5).add(waves));
-    const stripes = mix(0, 1, noiseStripesMap);
+    const waves = sin(positionLocal.y.mul(0.7)).mul(2);
+    const straightStripes = positionLocal.x.mul(2);
+    const stripesMap = straightStripes.add(waves);
+    const stripes = smoothstep(0.9, 1.0, sin(stripesMap));
 
     /*
     TODO: 
@@ -45,8 +46,17 @@ export const stripesTexture = ({
     add noise to wipe, so different stripes are targeted at different times
     might need to mix in the same waves to the wipe so it matches the stripes
     */
-    const wipeY = positionLocal.y.mul(0.1).add(noiseTime.mul(2));
-    const wipe = max(0, sin(wipeY));
+    const wavesTime = sin(positionLocal.y.mul(0.7)).mul(2);
+    const waveyTime = straightStripes;
+    const wipeTime = noiseTime.mul(0.5).add(stripesMap.mul(2));
+
+    const wipeY = smoothstep(
+      0.2,
+      0.3,
+      sin(positionLocal.y.mul(0.5).add(wipeTime))
+    );
+    const wipe = max(0, wipeY);
+
     return mix(stripes, 0, wipe.oneMinus());
   })();
 };
