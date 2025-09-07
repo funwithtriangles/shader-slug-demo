@@ -40,23 +40,18 @@ export const stripesTexture = ({
     const stripesMap = straightStripes.add(waves);
     const stripes = smoothstep(0.9, 1.0, sin(stripesMap));
 
-    /*
-    TODO: 
-    Make stripes more spaced out
-    add noise to wipe, so different stripes are targeted at different times
-    might need to mix in the same waves to the wipe so it matches the stripes
-    */
-    const wavesTime = sin(positionLocal.y.mul(0.7)).mul(2);
-    const waveyTime = straightStripes;
     const wipeTime = noiseTime.mul(0.5).add(stripesMap.mul(2));
 
-    const wipeY = smoothstep(
-      0.2,
-      0.3,
-      sin(positionLocal.y.mul(0.5).add(wipeTime))
-    );
+    const pulseOffset = wipeTime.add(stripesMap.mul(0.3));
+
+    const wipeY = sin(positionLocal.y.mul(0.5).add(pulseOffset));
+
     const wipe = max(0, wipeY);
 
-    return mix(stripes, 0, wipe.oneMinus());
+    // return wipe;
+
+    const mask = mix(stripes, 0, wipe.oneMinus());
+
+    return mix(colorA, colorB, mask);
   })();
 };
