@@ -12,12 +12,23 @@ interface UpdateParams {
 
 const TAU = Math.PI * 2;
 
+const { lerp } = THREE.MathUtils;
+
+const easeOutCubic = (x: number): number => {
+  return 1 - Math.pow(1 - x, 3);
+};
+
+const easeOutSine = (x: number): number => {
+  return Math.sin((x * Math.PI) / 2);
+};
+
 export default class Camera {
   root: THREE.Group;
   scene: THREE.Scene;
   camera: THREE.Camera;
   lookAtPos: THREE.Vector3;
   orbitDelta = 0;
+  latchDelta = 0;
   lerpDelta = 0;
   head: THREE.Object3D | null = null;
   currentMode: "orbit" | "closeUp" = "orbit";
@@ -65,20 +76,22 @@ export default class Camera {
       if (p.isRotating) {
         this.orbitDelta = (this.orbitDelta + f * p.rotSpeed) % TAU;
         this.lerpDelta = 0;
+        this.latchDelta = this.orbitDelta;
       } else {
         let diff = p.orbitRot - this.orbitDelta;
         if (diff < 0) {
           diff += TAU;
         }
 
-        // TODO: still feels too fast
         const step = p.rotSpeed / TAU;
         const target = this.orbitDelta + diff;
+
         if (this.lerpDelta < 1) {
-          this.orbitDelta = THREE.MathUtils.lerp(
-            this.orbitDelta,
+          this.lerpDelta += step;
+          this.orbitDelta = lerp(
+            this.latchDelta,
             target,
-            (this.lerpDelta += step)
+            easeOutCubic(this.lerpDelta)
           );
         } else {
           this.orbitDelta = target % TAU;

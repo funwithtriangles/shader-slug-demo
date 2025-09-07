@@ -38,6 +38,12 @@ export default {
       sliderMax: 20,
     },
     {
+      key: "isRotating",
+      title: "Auto Rotate",
+      valueType: "boolean",
+      defaultValue: true,
+    },
+    {
       key: "mode",
       title: "Camera Mode",
       valueType: "enum",
@@ -52,12 +58,6 @@ export default {
           value: "closeUp",
         },
       ],
-    },
-    {
-      key: "isRotating",
-      title: "Auto Rotate",
-      valueType: "boolean",
-      defaultValue: true,
     },
   ],
 };
