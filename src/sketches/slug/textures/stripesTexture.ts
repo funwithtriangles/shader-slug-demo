@@ -11,6 +11,9 @@ import {
   sin,
   time,
   vec3,
+  smoothstep,
+  min,
+  max,
 } from "three/tsl";
 import { Color, UniformNode } from "three/webgpu";
 
@@ -32,8 +35,18 @@ export const stripesTexture = ({
   return Fn(() => {
     const t = time;
 
-    const waves = sin(positionLocal.z.mul(2)).mul(5);
+    const waves = sin(positionLocal.y.mul(0.7)).mul(5);
     const noiseStripesMap = sin(positionLocal.x.mul(5).add(waves));
-    return mix(colorA, colorB, noiseStripesMap);
+    const stripes = mix(0, 1, noiseStripesMap);
+
+    /*
+    TODO: 
+    Make stripes more spaced out
+    add noise to wipe, so different stripes are targeted at different times
+    might need to mix in the same waves to the wipe so it matches the stripes
+    */
+    const wipeY = positionLocal.y.mul(0.1).add(noiseTime.mul(2));
+    const wipe = max(0, sin(wipeY));
+    return mix(stripes, 0, wipe.oneMinus());
   })();
 };
