@@ -121,9 +121,11 @@ export default class Slug {
       // });
 
       const noiseColor = stripesTexture({
-        bigNoiseAmp: this.uniforms.bigNoiseAmp,
-        noiseTime: this.uniforms.noiseTime,
-        smallNoiseAmp: this.uniforms.smallNoiseAmp,
+        waveAmp: this.uniforms.stripeWaveAmp,
+        waveLength: this.uniforms.stripeWaveLength,
+        stripeTime: this.uniforms.noiseTime,
+        stripeLength: this.uniforms.stripeLength,
+        stripeOffset: this.uniforms.stripeOffset,
         colorA: this.uniforms.colorA,
         colorB: this.uniforms.colorB,
       });

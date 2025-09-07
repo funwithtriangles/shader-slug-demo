@@ -92,6 +92,31 @@ export const uniformsParamsConfigBase = [
     defaultValue: 0,
     valueType: "number",
   },
+  {
+    key: "stripeLength",
+    defaultValue: 0,
+    valueType: "number",
+  },
+  {
+    key: "stripeOffset",
+    defaultValue: 0,
+    valueType: "number",
+  },
+  {
+    key: "stripeSpeed",
+    defaultValue: 0,
+    valueType: "number",
+  },
+  {
+    key: "stripeWaveAmp",
+    defaultValue: 0,
+    valueType: "number",
+  },
+  {
+    key: "stripeWaveLength",
+    defaultValue: 0,
+    valueType: "number",
+  },
 ] as const; // Important: use 'as const' to preserve literal types
 
 export const uniformsParamsConfig = [];
