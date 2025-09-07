@@ -46,6 +46,7 @@ import {
   Scene,
   TextureLoader,
 } from "three/webgpu";
+import { stripesTexture } from "./textures/stripesTexture";
 
 const textureLoader = new TextureLoader();
 export default class Slug {
@@ -111,9 +112,17 @@ export default class Slug {
     })();
 
     this.material.colorNode = Fn(() => {
-      const noiseColor = noiseTexture({
-        noiseTime: this.uniforms.noiseTime,
+      // const noiseColor = stripesTexture({
+      //   bigNoiseAmp: this.uniforms.bigNoiseAmp,
+      //   noiseTime: this.uniforms.noiseTime,
+      //   smallNoiseAmp: this.uniforms.smallNoiseAmp,
+      //   colorA: this.uniforms.colorA,
+      //   colorB: this.uniforms.colorB,
+      // });
+
+      const noiseColor = stripesTexture({
         bigNoiseAmp: this.uniforms.bigNoiseAmp,
+        noiseTime: this.uniforms.noiseTime,
         smallNoiseAmp: this.uniforms.smallNoiseAmp,
         colorA: this.uniforms.colorA,
         colorB: this.uniforms.colorB,
