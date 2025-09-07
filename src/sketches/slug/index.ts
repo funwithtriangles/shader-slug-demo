@@ -87,7 +87,7 @@ export default class Slug {
     // const split = window._sceneMask.r;
     const split = float(1);
 
-    const maskVal = window._xray_mask || float(1);
+    const maskVal = window._xray_mask || float(0);
 
     this.material.opacityNode = Fn(() => {
       return mix(wireframeAlphaFloat(), 1, maskVal.oneMinus());

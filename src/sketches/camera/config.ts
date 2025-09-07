@@ -17,6 +17,12 @@ export default {
       sliderMax: 10,
     },
     {
+      key: "orbitRot",
+      defaultValue: 0,
+      sliderMax: Math.PI * 2,
+      sliderMin: 0,
+    },
+    {
       key: "orbitRad",
       defaultValue: 1,
       sliderMax: 20,
@@ -46,6 +52,12 @@ export default {
           value: "closeUp",
         },
       ],
+    },
+    {
+      key: "isRotating",
+      title: "Auto Rotate",
+      valueType: "boolean",
+      defaultValue: true,
     },
   ],
 };

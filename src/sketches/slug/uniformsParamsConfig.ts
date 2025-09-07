@@ -2,7 +2,7 @@ import { Color } from "three";
 import { color, uniform } from "three/tsl";
 import { convertParamsToUniforms } from "./uniformsUtils";
 
-export const numSlugs = 8;
+export const numSlugs = 1;
 
 export const uniformsParamsConfigBase = [
   {

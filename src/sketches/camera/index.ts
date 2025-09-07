@@ -10,12 +10,15 @@ interface UpdateParams {
   deltaFrame: number;
 }
 
+const TAU = Math.PI * 2;
+
 export default class Camera {
   root: THREE.Group;
   scene: THREE.Scene;
   camera: THREE.Camera;
   lookAtPos: THREE.Vector3;
-  orbitDelta: number;
+  orbitDelta = 0;
+  lerpDelta = 0;
   head: THREE.Object3D | null = null;
   currentMode: "orbit" | "closeUp" = "orbit";
 
@@ -26,8 +29,6 @@ export default class Camera {
 
     this.camera = camera;
     this.lookAtPos = new THREE.Vector3();
-
-    this.orbitDelta = 0;
 
     // Hack to position cameras on JBoys head
     setTimeout(() => {
@@ -51,8 +52,6 @@ export default class Camera {
   }
 
   update({ params: p, deltaFrame: f }: UpdateParams) {
-    this.orbitDelta += f * p.rotSpeed;
-
     if (this.currentMode != p.mode) {
       if (p.mode === "closeUp") {
         this.closeUp();
@@ -62,8 +61,34 @@ export default class Camera {
     }
 
     if (this.currentMode === "orbit") {
-      const x = Math.sin(this.orbitDelta) * p.orbitRad * p.bigZoom;
-      const z = Math.cos(this.orbitDelta) * p.orbitRad * p.bigZoom;
+      let rot;
+      if (p.isRotating) {
+        this.orbitDelta = (this.orbitDelta + f * p.rotSpeed) % TAU;
+        this.lerpDelta = 0;
+      } else {
+        let diff = p.orbitRot - this.orbitDelta;
+        if (diff < 0) {
+          diff += TAU;
+        }
+
+        // TODO: still feels too fast
+        const step = p.rotSpeed / TAU;
+        const target = this.orbitDelta + diff;
+        if (this.lerpDelta < 1) {
+          this.orbitDelta = THREE.MathUtils.lerp(
+            this.orbitDelta,
+            target,
+            (this.lerpDelta += step)
+          );
+        } else {
+          this.orbitDelta = target % TAU;
+        }
+      }
+
+      rot = this.orbitDelta;
+
+      const x = Math.sin(rot) * p.orbitRad * p.bigZoom;
+      const z = Math.cos(rot) * p.orbitRad * p.bigZoom;
       this.lookAtPos.set(0, p.lookAtPosY, 0);
       this.camera.position.set(x, p.camY, z);
       this.camera.lookAt(this.lookAtPos);

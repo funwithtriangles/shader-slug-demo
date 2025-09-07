@@ -1,4 +1,3 @@
-import { uniform } from "three/tsl";
 import { numSlugs, uniformsParamsConfig } from "./uniformsParamsConfig";
 
 export default {

@@ -46,7 +46,7 @@ export default class Env {
 
   constructor({ renderer, camera, scene }) {
     // // Add Directional Light
-    // const directionalLight = new DirectionalLight("#ffffff", 2);
+    const directionalLight = new DirectionalLight("#ffffff", 2);
     // directionalLight.castShadow = true;
     // directionalLight.shadow.mapSize.set(256, 256);
     // directionalLight.shadow.camera.left = -3;
@@ -57,8 +57,8 @@ export default class Env {
     // directionalLight.shadow.camera.near = 0.1;
     // directionalLight.shadow.normalBias = 0.01;
     // directionalLight.shadow.bias = -0.1;
-    // directionalLight.position.set(0, 5, 0);
-    // this.root.add(directionalLight);
+    directionalLight.position.set(0, 5, 0);
+    this.root.add(directionalLight);
 
     this.scene = scene;
 
