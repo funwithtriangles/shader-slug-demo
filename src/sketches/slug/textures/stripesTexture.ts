@@ -11,6 +11,7 @@ import {
   sin,
   time,
   vec3,
+  vec2,
   smoothstep,
   min,
   max,
@@ -39,8 +40,10 @@ export const stripesTexture = ({
   return Fn(() => {
     const t = time;
 
-    const waves = sin(positionLocal.y.mul(waveLength)).mul(waveAmp);
-    const straightStripes = positionLocal.x.mul(2);
+    const waves = sin(positionLocal.y.mul(waveLength))
+      .mul(waveAmp)
+      .mul(positionLocal.x.abs().mul(0.1).pow(0.5));
+    const straightStripes = positionLocal.x.abs().mul(3);
     const stripesMap = straightStripes.add(waves);
     const stripes = smoothstep(0.9, 1.0, sin(stripesMap));
 
@@ -52,7 +55,14 @@ export const stripesTexture = ({
 
     const wipe = max(0, wipeY);
 
-    const mask = mix(stripes, 0, wipe.oneMinus());
+    const bigWaves = mx_noise_float(
+      positionLocal.xy.div(10).add(vec2(0, stripeTime.mul(0.1))),
+      20
+    );
+
+    let mask = mix(stripes, 0, wipe.oneMinus());
+
+    mask = mix(0, mask, bigWaves);
 
     return mix(colorA, colorB, mask);
   })();

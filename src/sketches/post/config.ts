@@ -155,6 +155,30 @@ export const logoParamsConfig = [
   },
 ];
 
+export const bloomParamsConfig = [
+  {
+    key: "bloom_strength",
+    title: "Strength",
+    defaultValue: 1,
+    sliderMin: 0,
+    sliderMax: 5,
+  },
+  {
+    key: "bloom_radius",
+    title: "Radius",
+    defaultValue: 1,
+    sliderMin: 0,
+    sliderMax: 5,
+  },
+  {
+    key: "bloom_threshold",
+    title: "Threshold",
+    defaultValue: 1,
+    sliderMin: 0,
+    sliderMax: 1,
+  },
+];
+
 export default {
   title: "Post",
   description: "Post-processing effects",
@@ -178,6 +202,10 @@ export default {
     {
       groupTitle: "Logo",
       params: logoParamsConfig,
+    },
+    {
+      groupTitle: "Bloom",
+      params: bloomParamsConfig,
     },
   ],
 };

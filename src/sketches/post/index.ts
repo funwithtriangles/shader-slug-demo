@@ -11,6 +11,7 @@ import {
 } from "three/tsl";
 import { convertParamsToUniforms, updateUniforms } from "../slug/uniformsUtils";
 import {
+  bloomParamsConfig,
   gradientMapParamsConfig,
   HSLParamsConfig,
   logoParamsConfig,
@@ -20,9 +21,11 @@ import { hsl } from "./effects/hsl";
 import { water } from "./effects/water";
 import { Shoutout } from "./effects/shoutout";
 import { gradientMap } from "./effects/gradientMap";
+import { bloom } from "./effects/bloom";
 import Logo from "./effects/logo";
 
 const uniformsParamsConfig = [
+  ...bloomParamsConfig,
   ...HSLParamsConfig,
   ...waterParamsConfig,
   ...gradientMapParamsConfig,
@@ -37,12 +40,13 @@ export default class Post {
   logo = new Logo();
 
   constructor() {
-    window._xray_mask = this.shoutoutTex.context({ getUV: () => screenUV }).r;
-    console.log(window._xray_mask);
+    // window._xray_mask = this.shoutoutTex.context({ getUV: () => screenUV }).r;
   }
 
   getWebGPUPass(prevPass: ShaderNodeObject<Node>): ShaderNodeObject<Node> {
     let p = prevPass;
+
+    this.bloomPass = bloom(p);
 
     // console.log();
     p = water(
@@ -74,6 +78,8 @@ export default class Post {
     p = mix(p, this.shoutoutTex, this.shoutoutTex.a);
     p = mix(p, logoTex, logoTex.a.mul(this.uniforms.logo_opacity));
 
+    p = p.add(this.bloomPass);
+
     return p;
   }
 
@@ -96,5 +102,11 @@ export default class Post {
     this.logo.update({ scene, params: { scale: params.logo_scale } });
 
     updateUniforms(uniformsParamsConfig, this.uniforms, params);
+
+    if (this.bloomPass) {
+      this.bloomPass.threshold.value = params.bloom_threshold;
+      this.bloomPass.strength.value = params.bloom_strength;
+      this.bloomPass.radius.value = params.bloom_radius;
+    }
   }
 }
