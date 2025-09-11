@@ -49,7 +49,10 @@ const hexSDF = (st: MathNodeParameter) => {
 
 export default class Particles {
   scene: THREE.Scene;
-  particleMaterial = new SpriteNodeMaterial({});
+  particleMaterial = new SpriteNodeMaterial({
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
   instancedSprite = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
     this.particleMaterial
