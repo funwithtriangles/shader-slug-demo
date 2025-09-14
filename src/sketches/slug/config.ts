@@ -31,6 +31,11 @@ export default {
       sliderMax: 0.5,
     },
     {
+      key: "stripeSpeed",
+      defaultValue: 0,
+      valueType: "number",
+    },
+    {
       key: "matChannelA",
       valueType: "enum",
       defaultValue: "0",

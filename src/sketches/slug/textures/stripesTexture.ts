@@ -24,8 +24,6 @@ interface WaveyUniforms {
   stripeLength: ShaderNodeObject<UniformNode<number>>;
   stripeOffset: ShaderNodeObject<UniformNode<number>>;
   stripeTime: ShaderNodeObject<UniformNode<number>>;
-  colorA: ShaderNodeObject<UniformNode<Color>>;
-  colorB: ShaderNodeObject<UniformNode<Color>>;
 }
 
 export const stripesTexture = ({
@@ -34,8 +32,6 @@ export const stripesTexture = ({
   stripeTime,
   stripeLength,
   stripeOffset,
-  colorA,
-  colorB,
 }: WaveyUniforms) => {
   return Fn(() => {
     const t = time;
@@ -62,8 +58,6 @@ export const stripesTexture = ({
 
     let mask = mix(stripes, 0, wipe.oneMinus());
 
-    mask = mix(0, mask, bigWaves);
-
-    return mix(colorA, colorB, mask);
+    return mix(0, mask, bigWaves);
   })();
 };

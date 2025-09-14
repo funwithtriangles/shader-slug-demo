@@ -61,8 +61,8 @@ export default class Particles {
 
   constructor() {
     const zRange = float(100);
-    const xyRange = 20;
-    this.instancedSprite.count = 1000;
+    const xyRange = 100;
+    this.instancedSprite.count = 10000;
     this.root.add(this.instancedSprite);
 
     const startRange = range(0, zRange);
@@ -70,6 +70,7 @@ export default class Particles {
       vec3(-xyRange, -xyRange, 0),
       vec3(xyRange, xyRange, 0)
     );
+    const scale = range(0.1, 1);
 
     const speed = uniform(5);
     const scaledTime = time.add(5).mul(speed);
@@ -88,7 +89,7 @@ export default class Particles {
       const ringRad = float(0.05);
       const ringThickness = float(0.01);
       const glowSpread = float(0.02);
-      const opacity = float(0.5);
+      const opacity = float(0.2);
 
       const distanceToCenter = uv().sub(0.5).length();
 
@@ -109,7 +110,7 @@ export default class Particles {
 
       const finalColor = mix(vec3(1, 1, 1), vec3(1, 1, 1), 1);
       // return vec4(1, 0, 0);
-      return vec4(vec3(1, 1, 1), alphaFinal);
+      return vec4(vec3(0.5, 0.7, 0.6), alphaFinal);
     })();
 
     this.particleMaterial.opacityNode = Fn(() => {
@@ -119,7 +120,7 @@ export default class Particles {
 
     this.particleMaterial.positionNode = offsetRange.sub(vec3(0, 0, posZ));
     this.particleMaterial.rotationNode = vec3(0, 2, 0);
-    // this.particleMaterial.scaleNode = vec3(0.5);
+    this.particleMaterial.scaleNode = scale;
   }
 
   update({ params: p, deltaFrame: f }: UpdateParams) {}

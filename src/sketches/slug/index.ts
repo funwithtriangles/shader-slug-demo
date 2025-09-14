@@ -61,6 +61,7 @@ export default class Slug {
     waveTime: uniform(0),
     finWaveTime: uniform(0),
     noiseTime: uniform(0),
+    stripesTime: uniform(0),
     roughness: uniform(0.2),
     metalness: uniform(0.2),
     ...sketchUniforms,
@@ -112,25 +113,23 @@ export default class Slug {
     })();
 
     this.material.colorNode = Fn(() => {
-      // const noiseColor = stripesTexture({
-      //   bigNoiseAmp: this.uniforms.bigNoiseAmp,
-      //   noiseTime: this.uniforms.noiseTime,
-      //   smallNoiseAmp: this.uniforms.smallNoiseAmp,
-      //   colorA: this.uniforms.colorA,
-      //   colorB: this.uniforms.colorB,
-      // });
+      let mask = noiseTexture({
+        bigNoiseAmp: this.uniforms.bigNoiseAmp,
+        noiseTime: this.uniforms.noiseTime,
+        smallNoiseAmp: this.uniforms.smallNoiseAmp,
+      }).mul(this.uniforms.noiseIntensity);
 
-      const noiseColor = stripesTexture({
-        waveAmp: this.uniforms.stripeWaveAmp,
-        waveLength: this.uniforms.stripeWaveLength,
-        stripeTime: this.uniforms.noiseTime,
-        stripeLength: this.uniforms.stripeLength,
-        stripeOffset: this.uniforms.stripeOffset,
-        colorA: this.uniforms.colorA,
-        colorB: this.uniforms.colorB,
-      });
+      mask = mask.add(
+        stripesTexture({
+          waveAmp: this.uniforms.stripeWaveAmp,
+          waveLength: this.uniforms.stripeWaveLength,
+          stripeTime: this.uniforms.stripesTime,
+          stripeLength: this.uniforms.stripeLength,
+          stripeOffset: this.uniforms.stripeOffset,
+        }).mul(this.uniforms.stripesIntensity)
+      );
 
-      return mix(noiseColor, color(0, 0, 0), maskVal);
+      return mix(this.uniforms.colorA, this.uniforms.colorB, mask);
     })();
 
     this.material.castShadowNode = Fn(() => {
@@ -163,6 +162,7 @@ export default class Slug {
     this.uniforms.waveTime.value += d * p.waveSpeed;
     this.uniforms.finWaveTime.value += d * p.finWaveSpeed;
     this.uniforms.noiseTime.value += d * p.noiseSpeed;
+    this.uniforms.stripesTime.value += d * p.stripeSpeed;
 
     this.uniforms.metalness.value = p.metalness;
     this.uniforms.roughness.value = p.roughness;

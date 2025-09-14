@@ -60,6 +60,10 @@ export const uniformsParamsConfigBase = [
     valueType: "number",
   },
   {
+    key: "noiseIntensity",
+    defaultValue: 1,
+  },
+  {
     key: "colorA",
     defaultValue: [1, 0, 0],
     valueType: "rgb",
@@ -103,11 +107,6 @@ export const uniformsParamsConfigBase = [
     valueType: "number",
   },
   {
-    key: "stripeSpeed",
-    defaultValue: 0,
-    valueType: "number",
-  },
-  {
     key: "stripeWaveAmp",
     defaultValue: 0,
     valueType: "number",
@@ -116,6 +115,10 @@ export const uniformsParamsConfigBase = [
     key: "stripeWaveLength",
     defaultValue: 0,
     valueType: "number",
+  },
+  {
+    key: "stripesIntensity",
+    defaultValue: 1,
   },
 ] as const; // Important: use 'as const' to preserve literal types
 
