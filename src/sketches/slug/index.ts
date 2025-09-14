@@ -47,6 +47,7 @@ import {
   TextureLoader,
 } from "three/webgpu";
 import { stripesTexture } from "./textures/stripesTexture";
+import { ringsTexture } from "./textures/ringsTexture";
 
 const textureLoader = new TextureLoader();
 export default class Slug {
@@ -62,6 +63,7 @@ export default class Slug {
     finWaveTime: uniform(0),
     noiseTime: uniform(0),
     stripesTime: uniform(0),
+    ringTime: uniform(0),
     roughness: uniform(0.2),
     metalness: uniform(0.2),
     ...sketchUniforms,
@@ -129,6 +131,12 @@ export default class Slug {
         }).mul(this.uniforms.stripesIntensity)
       );
 
+      mask = mask.add(
+        ringsTexture({
+          ringTime: this.uniforms.ringTime,
+        }).mul(this.uniforms.ringsIntensity)
+      );
+
       return mix(this.uniforms.colorA, this.uniforms.colorB, mask);
     })();
 
@@ -163,6 +171,7 @@ export default class Slug {
     this.uniforms.finWaveTime.value += d * p.finWaveSpeed;
     this.uniforms.noiseTime.value += d * p.noiseSpeed;
     this.uniforms.stripesTime.value += d * p.stripeSpeed;
+    this.uniforms.ringTime.value += d * p.ringSpeed;
 
     this.uniforms.metalness.value = p.metalness;
     this.uniforms.roughness.value = p.roughness;

@@ -120,6 +120,10 @@ export const uniformsParamsConfigBase = [
     key: "stripesIntensity",
     defaultValue: 1,
   },
+  {
+    key: "ringsIntensity",
+    defaultValue: 1,
+  },
 ] as const; // Important: use 'as const' to preserve literal types
 
 export const uniformsParamsConfig = [];

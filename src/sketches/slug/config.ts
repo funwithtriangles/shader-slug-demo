@@ -36,6 +36,11 @@ export default {
       valueType: "number",
     },
     {
+      key: "ringSpeed",
+      defaultValue: 0,
+      valueType: "number",
+    },
+    {
       key: "matChannelA",
       valueType: "enum",
       defaultValue: "0",

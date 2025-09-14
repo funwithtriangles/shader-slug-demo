@@ -1,22 +1,16 @@
 import {
-  color,
   Fn,
   mix,
   mx_noise_float,
   positionLocal,
-  positionWorld,
-  screenUV,
   ShaderNodeObject,
-  step,
   sin,
   time,
-  vec3,
   vec2,
   smoothstep,
-  min,
   max,
 } from "three/tsl";
-import { Color, UniformNode } from "three/webgpu";
+import { UniformNode } from "three/webgpu";
 
 interface WaveyUniforms {
   waveAmp: ShaderNodeObject<UniformNode<number>>;
