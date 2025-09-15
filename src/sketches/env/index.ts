@@ -57,27 +57,31 @@ export default class Env {
     // directionalLight.shadow.camera.near = 0.1;
     // directionalLight.shadow.normalBias = 0.01;
     // directionalLight.shadow.bias = -0.1;
-    directionalLight.position.set(0, 5, 0);
-    this.root.add(directionalLight);
+
+    // directionalLight.position.set(0, 5, 0);
+    // this.root.add(directionalLight);
 
     this.scene = scene;
 
     const maskVal = window._xray_mask || float(1);
 
     rgbeLoader.load(hdrTextureUrl, (environmentMap) => {
+      const bg = pmremTexture(environmentMap).mul(this.uniforms.color);
+      const maskBg = pmremTexture(environmentMap).mul(
+        hue(saturation(this.uniforms.color, 1), 1)
+      );
+
       environmentMap.mapping = EquirectangularReflectionMapping;
-      scene.backgroundNode = Fn(() => {
-        // return pmremTexture(environmentMap).mul(this.uniforms.color);
 
-        const bg = pmremTexture(environmentMap).mul(this.uniforms.color);
-        const maskBg = pmremTexture(environmentMap).mul(
-          hue(saturation(this.uniforms.color, maskVal.mul(10)), 3)
-        );
+      scene.environmentNode = mix(bg, maskBg, maskVal);
 
-        return mix(bg, maskBg, maskVal);
-      })();
+      scene.backgroundNode = scene.environmentNode
+        .context({
+          getTextureLevel: () => float(0.5),
+        })
+        .mul(this.uniforms.bgIntensity);
 
-      scene.environment = environmentMap;
+      // scene.environment = environmentMap;
     });
   }
 

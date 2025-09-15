@@ -6,6 +6,10 @@ export const uniformsParamsConfig = [
     defaultValue: [1, 0, 0],
     valueType: "rgb",
   },
+  {
+    key: "bgIntensity",
+    defaultValue: 1.0,
+  },
 ] as const;
 
 export default {

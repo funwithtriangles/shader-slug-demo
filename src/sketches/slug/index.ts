@@ -105,39 +105,43 @@ export default class Slug {
       return mix(1, this.uniforms.roughness, split);
     })();
 
+    let matCol = noiseTexture({
+      bigNoiseAmp: this.uniforms.bigNoiseAmp,
+      noiseTime: this.uniforms.noiseTime,
+      smallNoiseAmp: this.uniforms.smallNoiseAmp,
+    }).mul(this.uniforms.noiseIntensity);
+
+    matCol = matCol.add(
+      stripesTexture({
+        waveAmp: this.uniforms.stripeWaveAmp,
+        waveLength: this.uniforms.stripeWaveLength,
+        stripeTime: this.uniforms.stripesTime,
+        stripeLength: this.uniforms.stripeLength,
+        stripeOffset: this.uniforms.stripeOffset,
+      }).mul(this.uniforms.stripesIntensity)
+    );
+
+    matCol = matCol.add(
+      ringsTexture({
+        ringTime: this.uniforms.ringTime,
+      }).mul(this.uniforms.ringsIntensity)
+    );
+
+    matCol = mix(this.uniforms.colorA, this.uniforms.colorB, matCol);
+
     this.material.emissiveNode = Fn(() => {
       const wireCol = wireframeEmissiveColor({
         wireframeBackColor: this.uniforms.wireframeBackColor,
         wireframeFrontColor: this.uniforms.wireframeFrontColor,
       });
 
-      return mix(wireCol, color(0, 0, 0), maskVal.oneMinus());
+      const emmissiveCol = matCol.mul(this.uniforms.colorEmissiveIntensity);
+
+      return emmissiveCol.add(mix(wireCol, color(0, 0, 0), maskVal.oneMinus()));
     })();
 
     this.material.colorNode = Fn(() => {
-      let mask = noiseTexture({
-        bigNoiseAmp: this.uniforms.bigNoiseAmp,
-        noiseTime: this.uniforms.noiseTime,
-        smallNoiseAmp: this.uniforms.smallNoiseAmp,
-      }).mul(this.uniforms.noiseIntensity);
-
-      mask = mask.add(
-        stripesTexture({
-          waveAmp: this.uniforms.stripeWaveAmp,
-          waveLength: this.uniforms.stripeWaveLength,
-          stripeTime: this.uniforms.stripesTime,
-          stripeLength: this.uniforms.stripeLength,
-          stripeOffset: this.uniforms.stripeOffset,
-        }).mul(this.uniforms.stripesIntensity)
-      );
-
-      mask = mask.add(
-        ringsTexture({
-          ringTime: this.uniforms.ringTime,
-        }).mul(this.uniforms.ringsIntensity)
-      );
-
-      return mix(this.uniforms.colorA, this.uniforms.colorB, mask);
+      return matCol;
     })();
 
     this.material.castShadowNode = Fn(() => {

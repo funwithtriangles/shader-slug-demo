@@ -8,6 +8,7 @@ import {
   ShaderNodeObject,
   step,
   time,
+  vec3,
 } from "three/tsl";
 import { Color, UniformNode } from "three/webgpu";
 
@@ -23,8 +24,6 @@ export const noiseTexture = ({
   smallNoiseAmp,
 }: WaveyUniforms) => {
   return Fn(() => {
-    const t = time;
-
     const bigWaves = mx_noise_float(
       positionLocal.xy.div(bigNoiseAmp).add(noiseTime.mul(0.1)),
       5,
@@ -36,6 +35,6 @@ export const noiseTexture = ({
       20,
       1
     );
-    return noiseStripesMap;
+    return vec3(noiseStripesMap.rgb);
   })();
 };
