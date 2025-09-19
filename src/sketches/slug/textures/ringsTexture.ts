@@ -25,7 +25,6 @@ const TAU = Math.PI * 2;
 export const ringsTexture = ({ ringTime }: WaveyUniforms) => {
   return Fn(() => {
     const ringsMap = positionLocal.y
-      .abs()
       .add(sin(positionLocal.x.mul(0.5).add(Math.PI * 0.5)))
       .add(ringTime);
 

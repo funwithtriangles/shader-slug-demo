@@ -32,7 +32,7 @@ export const noiseTexture = ({
     const texSpace = positionLocal.xy.add(bigWaves).add(noiseTime);
     const noiseStripesMap = mx_noise_float(
       texSpace.add(noiseTime.mul(1.5)).div(smallNoiseAmp),
-      20,
+      10,
       1
     );
     return vec3(noiseStripesMap.rgb);
