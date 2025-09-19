@@ -6,5 +6,11 @@ export default {
       key: "speed",
       defaultValue: 0,
     },
+    {
+      key: "scale",
+      defaultValue: 0,
+      min: 0.001,
+      max: 5,
+    },
   ],
 };

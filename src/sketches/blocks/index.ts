@@ -6,7 +6,7 @@ interface UpdateParams {
   deltaFrame: number;
 }
 
-export default class Particles {
+export default class Blocks {
   count = 10000;
   material = new MeshNormalNodeMaterial();
   instancedMesh = new THREE.InstancedMesh(
@@ -29,9 +29,7 @@ export default class Particles {
     this.tick += f * p.speed;
 
     // const sc = Math.sin(this.tick) * 3;
-    const sc = 3;
-
-    console.log(sc);
+    const sc = p.scale;
 
     for (let i = 0; i < this.count; i++) {
       const z = ((i * 0.1 + this.tick) % 1000) - 500;

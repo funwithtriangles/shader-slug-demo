@@ -2,18 +2,24 @@ import { engineStore } from "./engine";
 import "@theatre/core";
 import { getProject, types } from "@theatre/core";
 import studio from "@theatre/studio";
+import audio from "./audio.mp3";
 
-import theatreState from "./theatre.json";
+import theatreJson from "./theatre.json";
 
 const { updateNodeValue, ...state } = engineStore.getState();
 
 studio.initialize();
 
+const theatreState = undefined;
+// const theatreState = theatreJson as any;
+
 const project = getProject("Shader Slug", { state: theatreState });
 
-Object.entries(state.sketches).forEach(([id, sketch]) => {
-  const sheet = project.sheet(sketch.title);
+const sheet = project.sheet("Timeline");
 
+sheet.sequence.attachAudio({ source: audio });
+
+Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
   sketch.paramIds.forEach((paramId) => {
     const param = state.nodes[paramId];
 
@@ -22,20 +28,22 @@ Object.entries(state.sketches).forEach(([id, sketch]) => {
 
     switch (param.valueType) {
       case "number":
-        obj = sheet.object(param.title, {
+        const sliderMin = state.nodeValues[`${paramId}-sliderMin`] as number;
+        const sliderMax = state.nodeValues[`${paramId}-sliderMax`] as number;
+        obj = sheet.object(`${sketch.title} / ${param.key}`, {
           [param.key]: types.number(param.defaultValue, {
-            range: [param.sliderMin ?? 0, param.sliderMax ?? 1],
+            range: [sliderMin ?? 0, sliderMax ?? 1],
           }),
         });
         break;
       case "boolean":
-        obj = sheet.object(param.title, {
+        obj = sheet.object(`${sketch.title} / ${param.key}`, {
           [param.key]: types.boolean(param.defaultValue),
         });
         break;
       case "rgb":
         const [r, g, b] = param.defaultValue;
-        colorObj = sheet.object(param.title, {
+        colorObj = sheet.object(`${sketch.title} / ${param.key}`, {
           [param.key]: types.rgba({ r, g, b, a: 1 }),
         });
 

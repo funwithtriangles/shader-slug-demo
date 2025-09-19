@@ -125,6 +125,3 @@ export default class Particles {
 
   update({ params: p, deltaFrame: f }: UpdateParams) {}
 }
-function tslFn(arg0: () => any) {
-  throw new Error("Function not implemented.");
-}
