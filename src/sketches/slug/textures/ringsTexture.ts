@@ -13,14 +13,8 @@ import {
 import { UniformNode } from "three/webgpu";
 
 interface WaveyUniforms {
-  // waveAmp: ShaderNodeObject<UniformNode<number>>;
-  // waveLength: ShaderNodeObject<UniformNode<number>>;
-  // stripeLength: ShaderNodeObject<UniformNode<number>>;
-  // stripeOffset: ShaderNodeObject<UniformNode<number>>;
   ringTime: ShaderNodeObject<UniformNode<number>>;
 }
-
-const TAU = Math.PI * 2;
 
 export const ringsTexture = ({ ringTime }: WaveyUniforms) => {
   return Fn(() => {

@@ -125,13 +125,15 @@ export default class Slug {
       ringsTexture({
         ringTime: this.uniforms.ringTime,
       }).mul(this.uniforms.ringsIntensity)
+    ).r;
+
+    matCol = vec4(
+      mix(
+        vec4(this.uniforms.colorA, this.uniforms.colorAOpacity),
+        vec4(this.uniforms.colorB, this.uniforms.colorBOpacity),
+        matCol
+      )
     );
-
-    matCol = ringsTexture({
-      ringTime: this.uniforms.ringTime,
-    }).mul(this.uniforms.ringsIntensity);
-
-    // matCol = mix(this.uniforms.colorA, this.uniforms.colorB, matCol);
 
     this.material.emissiveNode = Fn(() => {
       const wireCol = wireframeEmissiveColor({

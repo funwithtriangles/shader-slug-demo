@@ -69,9 +69,19 @@ export const uniformsParamsConfigBase = [
     valueType: "rgb",
   },
   {
+    key: "colorAOpacity",
+    defaultValue: 1,
+    valueType: "number",
+  },
+  {
     key: "colorB",
     defaultValue: [1, 0, 0],
     valueType: "rgb",
+  },
+  {
+    key: "colorBOpacity",
+    defaultValue: 1,
+    valueType: "number",
   },
   {
     key: "wireframeFrontColor",
