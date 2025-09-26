@@ -94,7 +94,7 @@ export default class Slug {
     const maskVal = window._xray_mask || float(0);
 
     this.material.opacityNode = Fn(() => {
-      return mix(wireframeAlphaFloat(), 1, maskVal.oneMinus());
+      return mix(1, wireframeAlphaFloat(), this.uniforms.wireframeAlpha);
     })();
 
     this.material.metalnessNode = Fn(() => {
@@ -141,9 +141,9 @@ export default class Slug {
         wireframeFrontColor: this.uniforms.wireframeFrontColor,
       });
 
-      const emmissiveCol = matCol.mul(this.uniforms.colorEmissiveIntensity);
+      return matCol.mul(this.uniforms.colorEmissiveIntensity);
 
-      return emmissiveCol.add(mix(wireCol, color(0, 0, 0), maskVal.oneMinus()));
+      // return emmissiveCol.add(mix(wireCol, color(0, 0, 0), maskVal.oneMinus()));
     })();
 
     this.material.colorNode = Fn(() => {

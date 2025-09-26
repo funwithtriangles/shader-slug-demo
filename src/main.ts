@@ -10,8 +10,8 @@ const { updateNodeValue, ...state } = engineStore.getState();
 
 studio.initialize();
 
-const theatreState = undefined;
-// const theatreState = theatreJson as any;
+// const theatreState = undefined;
+const theatreState = theatreJson as any;
 
 const project = getProject("Shader Slug", { state: theatreState });
 
