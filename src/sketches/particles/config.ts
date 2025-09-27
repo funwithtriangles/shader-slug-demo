@@ -6,5 +6,10 @@ export default {
       key: "speed",
       defaultValue: 0,
     },
+    {
+      key: "color",
+      valueType: "rgb",
+      defaultValue: [1, 1, 1],
+    },
   ],
 };

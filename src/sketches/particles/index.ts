@@ -26,6 +26,8 @@ import {
   vec4,
 } from "three/tsl";
 import { SpriteNodeMaterial } from "three/webgpu";
+import config from "./config";
+import { convertParamsToUniforms, updateUniforms } from "../slug/uniformsUtils";
 
 interface UpdateParams {
   params: Record<string, any>;
@@ -48,7 +50,7 @@ const hexSDF = (st: MathNodeParameter) => {
 };
 
 export default class Particles {
-  scene: THREE.Scene;
+  uniforms = convertParamsToUniforms(config.params);
   particleMaterial = new SpriteNodeMaterial({
     blending: THREE.AdditiveBlending,
     depthWrite: false,
@@ -58,6 +60,7 @@ export default class Particles {
     this.particleMaterial
   );
   root = new THREE.Group();
+  particleTime = uniform(0);
 
   constructor() {
     const zRange = float(100);
@@ -72,11 +75,11 @@ export default class Particles {
     );
     const scale = range(0.1, 1);
 
-    const speed = uniform(5);
-    const scaledTime = time.add(5).mul(speed);
-
     // const lifeTime = scaledTime.add(lifeRange);
-    const posZ = startRange.add(scaledTime).mod(zRange).sub(zRange.mul(0.5));
+    const posZ = startRange
+      .add(this.particleTime)
+      .mod(zRange)
+      .sub(zRange.mul(0.5));
     // const scaleRange = range(0.3, 2);
     // const rotateRange = range(0.1, 4);
 
@@ -110,7 +113,7 @@ export default class Particles {
 
       const finalColor = mix(vec3(1, 1, 1), vec3(1, 1, 1), 1);
       // return vec4(1, 0, 0);
-      return vec4(vec3(0.5, 0.7, 0.6), alphaFinal);
+      return vec4(vec3(this.uniforms.color), alphaFinal);
     })();
 
     this.particleMaterial.opacityNode = Fn(() => {
@@ -123,5 +126,9 @@ export default class Particles {
     this.particleMaterial.scaleNode = scale;
   }
 
-  update({ params: p, deltaFrame: f }: UpdateParams) {}
+  update({ params: p, deltaFrame: f }: UpdateParams) {
+    this.particleTime.value += p.speed * f;
+
+    updateUniforms(config.params, this.uniforms, p);
+  }
 }
