@@ -45,13 +45,13 @@ export const stripesTexture = ({
 
     const wipe = max(0, wipeY);
 
-    const bigWaves = mx_noise_float(
+    const noiseMask = mx_noise_float(
       positionLocal.xy.div(10).add(vec2(0, stripeTime.mul(0.1))),
       20
     );
 
     let mask = mix(stripes, 0, wipe.oneMinus());
 
-    return mix(0, mask, bigWaves);
+    return mix(0, mask, noiseMask);
   })();
 };
