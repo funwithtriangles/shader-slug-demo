@@ -7,6 +7,10 @@ export default {
       defaultValue: 0,
     },
     {
+      key: "rotSpeed",
+      defaultValue: 0,
+    },
+    {
       key: "scale",
       defaultValue: 0,
       min: 0.001,

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { MeshNormalNodeMaterial } from "three/webgpu";
+import { MeshBasicNodeMaterial } from "three/webgpu";
 
 interface UpdateParams {
   params: Record<string, any>;
@@ -8,7 +8,9 @@ interface UpdateParams {
 
 export default class Blocks {
   count = 10000;
-  material = new MeshNormalNodeMaterial();
+  material = new MeshBasicNodeMaterial({
+    wireframe: true,
+  });
   instancedMesh = new THREE.InstancedMesh(
     new THREE.BoxGeometry(1, 1, 1),
     this.material,
@@ -16,7 +18,8 @@ export default class Blocks {
   );
   root = new THREE.Group();
   dummy = new THREE.Object3D();
-  tick = 0;
+  zTime = 0;
+  rotTime = 0;
 
   constructor() {
     this.root.add(this.instancedMesh);
@@ -26,19 +29,20 @@ export default class Blocks {
 
   update({ params: p, deltaFrame: f }: UpdateParams) {
     const rad = 10;
-    this.tick += f * p.speed;
+    this.zTime += f * p.speed;
+    this.rotTime += f * p.rotSpeed;
 
     // const sc = Math.sin(this.tick) * 3;
     const sc = p.scale;
 
     for (let i = 0; i < this.count; i++) {
-      const z = ((i * 0.1 + this.tick) % 1000) - 500;
+      const z = ((i * 0.1 + this.zTime) % 1000) - 500;
       const x = Math.sin(i) * rad;
       const y = Math.cos(i) * rad;
 
-      this.dummy.position.set(x, y, z);
+      this.dummy.position.set(x, y, -z);
       this.dummy.scale.set(sc, sc, sc);
-      this.dummy.rotation.set(this.tick * 0.1, this.tick * 0.2, 0);
+      this.dummy.rotation.set(this.rotTime * 0.1, this.rotTime * 0.2, 0);
       this.dummy.updateMatrix();
       this.instancedMesh.setMatrixAt(i, this.dummy.matrix);
     }

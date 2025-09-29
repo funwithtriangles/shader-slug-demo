@@ -44,6 +44,18 @@ export default {
       defaultValue: true,
     },
     {
+      key: "fov",
+      defaultValue: 75,
+      sliderMin: 1,
+      sliderMax: 179,
+    },
+    {
+      key: "zoom",
+      defaultValue: 1,
+      sliderMin: 1,
+      sliderMax: 5,
+    },
+    {
       key: "mode",
       title: "Camera Mode",
       valueType: "enum",

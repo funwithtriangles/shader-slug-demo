@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 interface CameraConstructorParams {
-  camera: THREE.Camera;
+  camera: THREE.PerspectiveCamera;
   scene: THREE.Scene;
 }
 
@@ -25,7 +25,7 @@ const easeOutSine = (x: number): number => {
 export default class Camera {
   root: THREE.Group;
   scene: THREE.Scene;
-  camera: THREE.Camera;
+  camera: THREE.PerspectiveCamera;
   lookAtPos: THREE.Vector3;
   orbitDelta = 0;
   latchDelta = 0;
@@ -39,6 +39,7 @@ export default class Camera {
     this.scene.add(camera);
 
     this.camera = camera;
+    this.camera.near = 0.0001;
     this.lookAtPos = new THREE.Vector3();
 
     // Hack to position cameras on JBoys head
@@ -70,6 +71,10 @@ export default class Camera {
         this.orbitCam();
       }
     }
+
+    this.camera.fov = p.fov;
+    this.camera.updateProjectionMatrix();
+    this.camera.zoom = p.zoom;
 
     if (this.currentMode === "orbit") {
       let rot;
