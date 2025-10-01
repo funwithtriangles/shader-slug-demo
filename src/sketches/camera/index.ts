@@ -32,6 +32,7 @@ export default class Camera {
   lerpDelta = 0;
   head: THREE.Object3D | null = null;
   currentMode: "orbit" | "closeUp" = "orbit";
+  isFirstFrame = true;
 
   constructor({ camera, scene }: CameraConstructorParams) {
     this.root = new THREE.Group();
@@ -64,6 +65,12 @@ export default class Camera {
   }
 
   update({ params: p, deltaFrame: f }: UpdateParams) {
+    if (this.isFirstFrame) {
+      this.orbitDelta = p.orbitRot;
+      this.latchDelta = this.orbitDelta;
+      this.lerpDelta = 1;
+    }
+
     if (this.currentMode != p.mode) {
       if (p.mode === "closeUp") {
         this.closeUp();
@@ -78,7 +85,7 @@ export default class Camera {
 
     if (this.currentMode === "orbit") {
       let rot;
-      if (p.isRotating) {
+      if (p.isRotating && !this.isFirstFrame) {
         this.orbitDelta = (this.orbitDelta + f * p.rotSpeed) % TAU;
         this.lerpDelta = 0;
         this.latchDelta = this.orbitDelta;
@@ -114,5 +121,7 @@ export default class Camera {
       this.camera.rotation.set(0, 0, 0);
       this.camera.position.set(0, 0, p.headCamDistance * 80);
     }
+
+    this.isFirstFrame = false;
   }
 }

@@ -185,6 +185,8 @@ export default class Slug {
 
     this.uniforms.metalness.value = p.metalness;
     this.uniforms.roughness.value = p.roughness;
+
+    this.root.position.z = p.slidePos;
   }
 
   dispose({ scene }) {}

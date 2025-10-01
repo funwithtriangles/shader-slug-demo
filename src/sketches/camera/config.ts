@@ -41,7 +41,7 @@ export default {
       key: "isRotating",
       title: "Auto Rotate",
       valueType: "boolean",
-      defaultValue: true,
+      defaultValue: false,
     },
     {
       key: "fov",

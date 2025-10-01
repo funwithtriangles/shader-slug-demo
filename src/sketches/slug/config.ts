@@ -49,6 +49,13 @@ export default {
         value: `${i}`,
       })),
     },
+    {
+      key: "slidePos",
+      defaultValue: 0,
+      valueType: "number",
+      sliderMin: -10,
+      sliderMax: 10,
+    },
     ...uniformsParamsConfig,
     {
       key: "isVisible",
