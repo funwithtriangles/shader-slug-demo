@@ -36,7 +36,7 @@ interface UpdateParams {
   deltaFrame: number;
 }
 
-const wormLength = 20;
+const wormLength = 30;
 const numWorms = 1000;
 const instanceCount = wormLength * numWorms;
 
@@ -55,13 +55,13 @@ export default class Worms {
   swimTime = uniform(0);
 
   constructor() {
-    const xRange = 100;
-    const yRange = 100;
-    const zRange = float(100);
+    const xRange = 150;
+    const yRange = 150;
+    const zRange = float(200);
     this.instancedSprite.count = instanceCount;
     this.root.add(this.instancedSprite);
 
-    const startRange = hash(instanceIndex.div(numWorms)).mul(zRange);
+    const startRange = hash(instanceIndex.add(21239).div(numWorms)).mul(zRange);
     // const baseX = hash(instanceIndex.div(wormLength)).sub(0.5).mul(xRange);
     const baseX = hash(instanceIndex.add(321).div(wormLength))
       .sub(0.5)
@@ -118,11 +118,13 @@ export default class Worms {
 
     const delta = float(instanceIndex).mul(0.05);
 
+    const negZ = basePosZ.mul(-1);
+
     // this.particleMaterial.positionNode = offsetRange.sub(vec3(0, 0, basePosZ));
     this.particleMaterial.positionNode = vec3(
       baseX.add(cos(delta.add(this.swimTime).mul(0.7))),
       baseY.add(sin(delta.add(this.swimTime))),
-      basePosZ.add(cos(delta.add(this.swimTime)))
+      negZ.add(cos(delta.add(this.swimTime)))
     );
     this.particleMaterial.rotationNode = vec3(0, 2, 0);
     this.particleMaterial.scaleNode = scale;
