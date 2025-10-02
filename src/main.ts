@@ -21,16 +21,15 @@ const sheet = project.sheet("Timeline");
 
 const button = document.querySelector("#play-button")!;
 
-project.ready.then(() => {
-  button.classList.remove("hidden");
-});
-
-button.addEventListener("click", async () => {
-  await sheet.sequence.attachAudio({ source: audio });
-  sheet.sequence.play();
-  button.classList.add("hidden");
-  document.body.classList.add("playing");
-});
+if (import.meta.env.DEV) {
+  sheet.sequence.attachAudio({ source: audio });
+} else {
+  project.ready.then(async () => {
+    await sheet.sequence.attachAudio({ source: audio });
+    sheet.sequence.play();
+    document.body.classList.add("playing");
+  });
+}
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
   sketch.paramIds.forEach((paramId) => {
