@@ -4,9 +4,37 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Hedron Web Example</title>
+    <style>
+      body {
+        button {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 10;
+          padding: 10px 20px;
+          font-size: 32px;
+          border: 2px solid white;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.1);
+          text-transform: uppercase;
+          color: white;
+          cursor: pointer;
+        }
+      }
+
+      .playing {
+        cursor: none;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <main class="container" id="root"></main>
+    <button id="play-button" class="hidden">Play</button>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

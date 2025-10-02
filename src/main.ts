@@ -8,7 +8,9 @@ import theatreJson from "./theatre.json";
 
 const { updateNodeValue, ...state } = engineStore.getState();
 
-studio.initialize();
+if (import.meta.env.DEV) {
+  studio.initialize();
+}
 
 // const theatreState = undefined;
 const theatreState = theatreJson as any;
@@ -17,7 +19,18 @@ const project = getProject("Shader Slug", { state: theatreState });
 
 const sheet = project.sheet("Timeline");
 
-sheet.sequence.attachAudio({ source: audio });
+const button = document.querySelector("#play-button")!;
+
+project.ready.then(() => {
+  button.classList.remove("hidden");
+});
+
+button.addEventListener("click", async () => {
+  await sheet.sequence.attachAudio({ source: audio });
+  sheet.sequence.play();
+  button.classList.add("hidden");
+  document.body.classList.add("playing");
+});
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
   sketch.paramIds.forEach((paramId) => {
