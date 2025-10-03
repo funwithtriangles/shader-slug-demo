@@ -64,8 +64,8 @@ export default class Particles {
 
   constructor() {
     const zRange = float(100);
-    const xyRange = 100;
-    this.instancedSprite.count = 10000;
+    const xyRange = 50;
+    this.instancedSprite.count = 5000;
     this.root.add(this.instancedSprite);
 
     const startRange = range(0, zRange);
@@ -92,7 +92,7 @@ export default class Particles {
       const ringRad = float(0.05);
       const ringThickness = float(0.01);
       const glowSpread = float(0.02);
-      const opacity = float(0.2);
+      const opacity = this.uniforms.opacity;
 
       const distanceToCenter = uv().sub(0.5).length();
 

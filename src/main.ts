@@ -1,6 +1,6 @@
-import { engineStore } from "./engine";
+import { clock, engineStore } from "./engine";
 import "@theatre/core";
-import { getProject, types } from "@theatre/core";
+import { getProject, onChange, types } from "@theatre/core";
 import studio from "@theatre/studio";
 import audio from "./audio.mp3";
 
@@ -30,6 +30,26 @@ if (import.meta.env.DEV) {
     document.body.classList.add("playing");
   });
 }
+
+onChange(sheet.sequence.pointer.playing, (playing) => {
+  if (playing) {
+    clock.start(true);
+    button.classList.add("hidden");
+  } else {
+    clock.stop();
+  }
+});
+
+// button.classList.remove("hidden");
+
+button.addEventListener("click", async () => {
+  await project.ready;
+  await sheet.sequence.attachAudio({ source: audio });
+  sheet.sequence.play();
+  clock.start(true);
+  document.body.classList.add("playing");
+  button.classList.add("hidden");
+});
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
   sketch.paramIds.forEach((paramId) => {
@@ -78,6 +98,19 @@ Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
       updateNodeValue(paramId, v[param.key]);
     });
   });
+});
+
+const particlesLFOEnabled = "6dd885cc5f2061cb";
+const wormsLFOEnabled = "2a69db3e1cbecefa";
+
+const lfoObj = sheet.object("LFO", {
+  particlesEnabled: types.boolean(false),
+  wormsEnabled: types.boolean(false),
+});
+
+lfoObj.onValuesChange((v) => {
+  updateNodeValue(particlesLFOEnabled, v.particlesEnabled);
+  updateNodeValue(wormsLFOEnabled, v.wormsEnabled);
 });
 
 // const CAM_Y = "ff6d8b05f5f49617";

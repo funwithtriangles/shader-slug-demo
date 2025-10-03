@@ -11,8 +11,8 @@ import { getSketchModuleItems } from "./utils";
 const engineData = projectData.engine as unknown as EngineData;
 
 // Because the project uses LFOs, we need a clock
-const clock = new Clock();
-clock.start();
+export const clock = new Clock();
+clock.bpm = 99;
 
 // Initialize the engine with the clock
 export const engine = new HedronEngine({
