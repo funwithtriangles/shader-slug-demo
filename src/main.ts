@@ -102,15 +102,21 @@ Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
 
 const particlesLFOEnabled = "6dd885cc5f2061cb";
 const wormsLFOEnabled = "2a69db3e1cbecefa";
+const stripesLFOEnabled = "25ef78c1445a6021";
+const noiseSpeedLFOEnabled = "070f884120ad4f1c";
 
 const lfoObj = sheet.object("LFO", {
   particlesEnabled: types.boolean(false),
   wormsEnabled: types.boolean(false),
+  stripesEnabled: types.boolean(false),
+  noiseSpeedEnabled: types.boolean(false),
 });
 
 lfoObj.onValuesChange((v) => {
   updateNodeValue(particlesLFOEnabled, v.particlesEnabled);
   updateNodeValue(wormsLFOEnabled, v.wormsEnabled);
+  updateNodeValue(stripesLFOEnabled, v.stripesEnabled);
+  updateNodeValue(noiseSpeedLFOEnabled, v.noiseSpeedEnabled);
 });
 
 // const CAM_Y = "ff6d8b05f5f49617";
