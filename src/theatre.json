@@ -575,16 +575,25 @@
             "ySpeed": 2.582262658227849
           },
           "worms2 / yRad": {
-            "yRad": 2.9620056962025334
+            "yRad": 2.8481727848101253
           },
           "worms2 / zRad": {
-            "zRad": 1.8860670886075956
+            "zRad": 9.936709493670886
           },
           "worms2 / xRad": {
             "xRad": 5.367044936708861
           },
           "worms / xRad": {
             "xRad": 0.7468379746835443
+          },
+          "worms / yRad": {
+            "yRad": 0.9999999999999992
+          },
+          "worms / xSpeed": {
+            "xSpeed": 0.6202569620253164
+          },
+          "worms / zSpeed": {
+            "zSpeed": 1.4430335443037983
           }
         }
       },
@@ -9174,6 +9183,19 @@
                     "value": true
                   },
                   {
+                    "id": "FCyW2W8bys",
+                    "position": 77.5,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": false
+                  },
+                  {
                     "id": "24eOLg1_ch",
                     "position": 88.233,
                     "connectedRight": true,
@@ -9409,6 +9431,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "8olrGMqRPwFVuHHL",
     "wF1Mswl9Yc7wi7uZ",
     "bewqHcNPp9u4ptEu",
     "DDu9xdq_cRirj8bJ",
