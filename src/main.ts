@@ -104,10 +104,12 @@ const particlesLFOEnabled = "6dd885cc5f2061cb";
 const wormsLFOEnabled = "2a69db3e1cbecefa";
 const stripesLFOEnabled = "25ef78c1445a6021";
 const noiseSpeedLFOEnabled = "070f884120ad4f1c";
+const bigWormsLFOEnabled = "ea0f1f0adb98d0ee";
 
 const lfoObj = sheet.object("LFO", {
   particlesEnabled: types.boolean(false),
   wormsEnabled: types.boolean(false),
+  bigWormsLFOEnabled: types.boolean(false),
   stripesEnabled: types.boolean(false),
   noiseSpeedEnabled: types.boolean(false),
 });
@@ -117,6 +119,7 @@ lfoObj.onValuesChange((v) => {
   updateNodeValue(wormsLFOEnabled, v.wormsEnabled);
   updateNodeValue(stripesLFOEnabled, v.stripesEnabled);
   updateNodeValue(noiseSpeedLFOEnabled, v.noiseSpeedEnabled);
+  updateNodeValue(bigWormsLFOEnabled, v.bigWormsLFOEnabled);
 });
 
 // const CAM_Y = "ff6d8b05f5f49617";

@@ -7,6 +7,7 @@ import {
   color,
   cos,
   densityFogFactor,
+  div,
   float,
   Fn,
   fog,
@@ -57,16 +58,20 @@ export default class Worms {
   constructor() {
     const xRange = 150;
     const yRange = 150;
-    const zRange = float(200);
+    const zRange = float(150);
     this.instancedSprite.count = instanceCount;
     this.root.add(this.instancedSprite);
 
-    const startRange = hash(instanceIndex.add(21239).div(numWorms)).mul(zRange);
+    const floatIndex = float(instanceIndex);
+
+    const startRange = hash(floatIndex.div(numWorms)).mul(zRange);
     // const baseX = hash(instanceIndex.div(wormLength)).sub(0.5).mul(xRange);
-    const baseX = hash(instanceIndex.add(321).div(wormLength))
+    const baseX = hash(floatIndex.add(321).div(wormLength))
       .sub(0.5)
       .mul(xRange);
-    const baseY = hash(instanceIndex.div(wormLength)).sub(0.5).mul(yRange);
+    const baseY = hash(floatIndex.div(wormLength).add(422))
+      .sub(0.5)
+      .mul(yRange);
 
     const scale = range(0.1, 1);
 
@@ -84,14 +89,14 @@ export default class Worms {
 
     this.particleMaterial.colorNode = Fn(() => {
       const solidAlpha = float(1);
-      const ringRad = float(0.05);
+      const ringRad = this.uniforms.ringRad;
       const ringThickness = float(0.01);
-      const glowSpread = float(0.02);
+      const glowSpread = this.uniforms.glowSpread;
       const opacity = float(0.2);
 
       const distanceToCenter = uv().sub(0.5).length();
 
-      const alphaSolid = step(ringRad.div(2), distanceToCenter)
+      const alphaSolid = step(div(ringRad, 2), distanceToCenter)
         .oneMinus()
         .mul(solidAlpha);
 
@@ -101,7 +106,9 @@ export default class Worms {
 
       // const alphaSolid = stroke(hexSDF(uv()), 0.8, 0.02);
 
-      const alphaGlow = glowSpread.div(distanceToCenter).sub(glowSpread.mul(2));
+      const alphaGlow = div(glowSpread, distanceToCenter).sub(
+        mul(glowSpread, 2)
+      );
       alphaGlow.mulAssign(alphaSolid.oneMinus());
       ``;
       const alphaFinal = max(alphaGlow, alphaSolid).mul(opacity);
@@ -116,16 +123,29 @@ export default class Worms {
       return densityFogFactor(d).oneMinus();
     })();
 
-    const delta = float(instanceIndex).mul(0.05);
+    const delta = float(instanceIndex).mul(this.uniforms.pointDist);
 
     const negZ = basePosZ.mul(-1);
 
     // this.particleMaterial.positionNode = offsetRange.sub(vec3(0, 0, basePosZ));
     this.particleMaterial.positionNode = vec3(
-      baseX.add(cos(delta.add(this.swimTime).mul(0.7))),
-      baseY.add(sin(delta.add(this.swimTime))),
-      negZ.add(cos(delta.add(this.swimTime)))
+      baseX.add(
+        cos(delta.add(this.swimTime).mul(this.uniforms.xSpeed)).mul(
+          this.uniforms.xRad
+        )
+      ),
+      baseY.add(
+        sin(delta.add(this.swimTime).mul(this.uniforms.ySpeed)).mul(
+          this.uniforms.yRad
+        )
+      ),
+      negZ.add(
+        cos(delta.add(this.swimTime).mul(this.uniforms.zSpeed)).mul(
+          this.uniforms.zRad
+        )
+      )
     );
+
     this.particleMaterial.rotationNode = vec3(0, 2, 0);
     this.particleMaterial.scaleNode = scale;
   }
@@ -133,6 +153,8 @@ export default class Worms {
   update({ params: p, deltaFrame: f }: UpdateParams) {
     this.particleTime.value += p.speed * f;
     this.swimTime.value += p.swimSpeed * f;
+
+    // this.instancedSprite.scale.set(10, 10, 10);
 
     updateUniforms(config.params, this.uniforms, p);
   }
