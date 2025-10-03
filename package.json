@@ -8,6 +8,7 @@
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix"
   },
   "dependencies": {
+    "@fontsource-variable/roboto-condensed": "^5.2.8",
     "@fontsource/chivo-mono": "^5.2.6",
     "@hedron/clock": "workspace:^",
     "@hedron/engine": "workspace:^",

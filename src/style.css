@@ -3,6 +3,30 @@ body {
   background: black;
 }
 
+button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 10px 20px;
+  font-size: 32px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+}
+
+.playing {
+  cursor: none;
+}
+
+.hidden {
+  display: none;
+}
+
 #root {
   width: 100vw;
   height: 100vh;

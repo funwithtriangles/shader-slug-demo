@@ -1,7 +1,6 @@
 import * as THREE from "three";
 
 export class Shoutout {
-  plane: THREE.Mesh;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   texture: THREE.CanvasTexture;
@@ -10,13 +9,15 @@ export class Shoutout {
   constructor() {
     // Create canvas for text texture
     this.canvas = document.createElement("canvas");
-    this.canvas.width = 1024;
-    this.canvas.height = 512;
+
+    this.canvas.width = 1920;
+    this.canvas.height = 1080;
     this.context = this.canvas.getContext("2d")!;
 
     // Set up canvas styling
-    this.context.font = '48px "Chivo Mono"';
-    this.context.textAlign = "left"; // Change to left align for scrolling
+    this.context.font = '700 48px "Roboto Condensed Variable"';
+    this.context.letterSpacing = "0.2em";
+    this.context.textAlign = "center";
     this.context.textBaseline = "middle";
 
     // Create texture from canvas
@@ -32,11 +33,15 @@ export class Shoutout {
   }: {
     params: {
       message: string;
+      message1: string;
       color: [number, number, number];
       scrollSpeed: number;
       positionX: number;
+      positionX1: number;
       positionY: number;
+      positionY1: number;
       scale: number;
+      scale1: number;
       rotation: number;
       opacity: number;
     };
@@ -48,12 +53,11 @@ export class Shoutout {
     // Clear canvas
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Move text to the left
-    this.textX -= p.scrollSpeed;
-
     // Calculate base position from manual positioning
     const baseX = p.positionX * this.canvas.width;
-    const baseY = this.canvas.height / 2 + p.positionY * this.canvas.height;
+    const baseY = p.positionY * this.canvas.height;
+    const baseX1 = p.positionX1 * this.canvas.width;
+    const baseY1 = p.positionY1 * this.canvas.height;
 
     // Save the current context state
     this.context.save();
@@ -67,18 +71,26 @@ export class Shoutout {
     );
     this.context.scale(p.scale, p.scale);
 
-    // Get text width with current scaling applied
-    const textWidth = this.context.measureText(p.message).width;
+    // Draw the text with scrolling applied in the rotated coordinate space
+    this.context.fillText(p.message, 0, 0);
 
-    // Reset position when text has completely scrolled off screen (accounting for scale)
-    if (this.textX + textWidth < 0) {
-      this.textX = this.canvas.width / p.scale;
-    }
+    this.context.restore();
+
+    // Save the current context state
+    this.context.save();
+
+    // Apply transformations: translate to screen center, rotate, then translate to position and scale
+    this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
+    this.context.rotate(p.rotation);
+    this.context.translate(
+      baseX1 - this.canvas.width / 2,
+      baseY1 - this.canvas.height / 2
+    );
+    this.context.scale(p.scale1, p.scale1);
 
     // Draw the text with scrolling applied in the rotated coordinate space
-    this.context.fillText(p.message, this.textX, 0);
+    this.context.fillText(p.message1, 0, 0);
 
-    // Restore the context state
     this.context.restore();
 
     // Update texture

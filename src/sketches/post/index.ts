@@ -35,11 +35,12 @@ const uniformsParamsConfig = [
 export default class Post {
   uniforms = convertParamsToUniforms(uniformsParamsConfig);
   water_waveTime = uniform(0);
-  shoutout = new Shoutout();
-  shoutoutTex = texture(this.shoutout.texture);
+
   logo = new Logo();
 
-  constructor() {
+  constructor(props) {
+    this.shoutout = new Shoutout(props);
+    this.shoutoutTex = texture(this.shoutout.texture);
     // window._xray_mask = this.shoutoutTex.context({ getUV: () => screenUV }).r;
   }
 
@@ -75,7 +76,14 @@ export default class Post {
 
     const logoTex = texture(this.logo.texture);
 
-    p = mix(p, this.shoutoutTex, this.shoutoutTex.a);
+    p = p.add(
+      p,
+      water(
+        this.shoutoutTex,
+        this.uniforms.water_intensity,
+        this.water_waveTime
+      )
+    );
     p = mix(p, logoTex, logoTex.a.mul(this.uniforms.logo_opacity));
 
     p = p.add(this.bloomPass);
@@ -96,6 +104,10 @@ export default class Post {
         scale: params.shoutout_scale,
         rotation: params.shoutout_rotation,
         opacity: params.shoutout_opacity,
+        message1: params.shoutout_message1,
+        positionX1: params.shoutout_positionX1,
+        positionY1: params.shoutout_positionY1,
+        scale1: params.shoutout_scale1,
       },
     });
 

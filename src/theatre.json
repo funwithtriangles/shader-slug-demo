@@ -364,7 +364,7 @@
             "logo_opacity": 1
           },
           "Post / shoutout_opacity": {
-            "shoutout_opacity": 0
+            "shoutout_opacity": 1
           },
           "Post / water_speed": {
             "water_speed": 0.026582278481012644
@@ -523,6 +523,30 @@
           },
           "worms / swimSpeed": {
             "swimSpeed": 0.018987341772151903
+          },
+          "Post / shoutout_message": {
+            "shoutout_message": " POLYOP"
+          },
+          "Post / shoutout_positionX": {
+            "shoutout_positionX": 0.5
+          },
+          "Post / shoutout_positionY": {
+            "shoutout_positionY": 1.2088607594936729
+          },
+          "Post / shoutout_scale": {
+            "shoutout_scale": 9.050632911392404
+          },
+          "Post / shoutout_message1": {
+            "shoutout_message1": "CHUG"
+          },
+          "Post / shoutout_positionX1": {
+            "shoutout_positionX1": 0.4810126582278478
+          },
+          "Post / shoutout_positionY1": {
+            "shoutout_positionY1": 0.7025316455696206
+          },
+          "Post / shoutout_scale1": {
+            "shoutout_scale1": 10
           }
         }
       },
@@ -5570,8 +5594,47 @@
                 "__debugName": "Post / water_intensity:[\"water_intensity\"]",
                 "keyframes": [
                   {
+                    "id": "nSH-VpMvOk",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 0.3417721518987344
+                  },
+                  {
+                    "id": "HdEWF6mZxA",
+                    "position": 19.733,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 0.33804828535405307
+                  },
+                  {
+                    "id": "NSRLMdy9lI",
+                    "position": 23.1,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 0
+                  },
+                  {
                     "id": "I3aoWwgBzF",
-                    "position": 214.267,
+                    "position": 214.7,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -13759,6 +13822,318 @@
             "trackIdByPropPath": {
               "[\"color\"]": "e-KneVIgKu"
             }
+          },
+          "Post / shoutout_positionY": {
+            "trackData": {
+              "WO-kbBF66O": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_positionY:[\"shoutout_positionY\"]",
+                "keyframes": [
+                  {
+                    "id": "6-Ag5HszgF",
+                    "position": 3.533,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.521,
+                      0.996
+                    ],
+                    "type": "bezier",
+                    "value": 1.2088607594936729
+                  },
+                  {
+                    "id": "4OBp2MgHbn",
+                    "position": 6.333,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.848,
+                      0.009
+                    ],
+                    "type": "bezier",
+                    "value": 0.5
+                  },
+                  {
+                    "id": "uQ3NI5MF2b",
+                    "position": 9.233,
+                    "connectedRight": true,
+                    "handles": [
+                      1,
+                      0.996,
+                      0.5,
+                      0
+                    ],
+                    "type": "hold",
+                    "value": -0.2151898734177194
+                  },
+                  {
+                    "id": "8aI1Gy7-04",
+                    "position": 11.467,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.655,
+                      1.064
+                    ],
+                    "type": "bezier",
+                    "value": 1.3037974683544318
+                  },
+                  {
+                    "id": "ZR_9EZflDK",
+                    "position": 15.067,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.669,
+                      -0.011
+                    ],
+                    "type": "bezier",
+                    "value": 0.3670886075949381
+                  },
+                  {
+                    "id": "KsRUlGjjEr",
+                    "position": 18.433,
+                    "connectedRight": true,
+                    "handles": [
+                      0.852,
+                      0.763,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": -1.1139240506329111
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_positionY\"]": "WO-kbBF66O"
+            }
+          },
+          "Post / shoutout_message": {
+            "trackData": {
+              "-i4Y7fjCWl": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_message:[\"shoutout_message\"]",
+                "keyframes": [
+                  {
+                    "id": "p80XSHMOD-",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": " POLYOP"
+                  },
+                  {
+                    "id": "CkHPOkna6K",
+                    "position": 9.6,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": " SLUG"
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_message\"]": "-i4Y7fjCWl"
+            }
+          },
+          "Post / shoutout_scale": {
+            "trackData": {
+              "He2ys5TJ8s": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_scale:[\"shoutout_scale\"]",
+                "keyframes": [
+                  {
+                    "id": "_4Sty8TbSG",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "hold",
+                    "value": 8.79746835443038
+                  },
+                  {
+                    "id": "j2eFrWYX3F",
+                    "position": 9.6,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 12
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_scale\"]": "He2ys5TJ8s"
+            }
+          },
+          "Post / shoutout_positionX": {
+            "trackData": {
+              "5YH9Jp-mKs": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_positionX:[\"shoutout_positionX\"]",
+                "keyframes": [
+                  {
+                    "id": "bjFliLxpXP",
+                    "position": 0,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 0.4810126582278481
+                  },
+                  {
+                    "id": "MCdZUCyRrw",
+                    "position": 9.6,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 0.46835443037974683
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_positionX\"]": "5YH9Jp-mKs"
+            }
+          },
+          "Post / shoutout_scale1": {
+            "trackData": {
+              "5fEvFOLA7K": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_scale1:[\"shoutout_scale1\"]",
+                "keyframes": [
+                  {
+                    "id": "h31ZgHtzPg",
+                    "position": 9.6,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 12
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_scale1\"]": "5fEvFOLA7K"
+            }
+          },
+          "Post / shoutout_positionX1": {
+            "trackData": {
+              "tu5uPk-JXh": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_positionX1:[\"shoutout_positionX1\"]",
+                "keyframes": [
+                  {
+                    "id": "rgwJM-zDBK",
+                    "position": 9.6,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": 0.5316455696202528
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_positionX1\"]": "tu5uPk-JXh"
+            }
+          },
+          "Post / shoutout_positionY1": {
+            "trackData": {
+              "TytKuyrAk0": {
+                "type": "BasicKeyframedTrack",
+                "__debugName": "Post / shoutout_positionY1:[\"shoutout_positionY1\"]",
+                "keyframes": [
+                  {
+                    "id": "cexjMy0zhr",
+                    "position": 11.467,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.665,
+                      1.157
+                    ],
+                    "type": "bezier",
+                    "value": 2
+                  },
+                  {
+                    "id": "KLMiWJ8o88",
+                    "position": 15.067,
+                    "connectedRight": true,
+                    "handles": [
+                      0.5,
+                      1,
+                      0.669,
+                      -0.011
+                    ],
+                    "type": "bezier",
+                    "value": 0.8101265822784812
+                  },
+                  {
+                    "id": "-3lTkM6ITB",
+                    "position": 18.433,
+                    "connectedRight": true,
+                    "handles": [
+                      0.852,
+                      0.763,
+                      0.5,
+                      0
+                    ],
+                    "type": "bezier",
+                    "value": -0.658227848101266
+                  }
+                ]
+              }
+            },
+            "trackIdByPropPath": {
+              "[\"shoutout_positionY1\"]": "TytKuyrAk0"
+            }
           }
         }
       }
@@ -13766,6 +14141,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "ehTE3wsTic6LAp-N",
     "UNMtm2ife6j3L5TY",
     "vM4jwxI1y7luDPYC",
     "llLfQX9asybV7b1n",

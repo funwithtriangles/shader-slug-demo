@@ -3,6 +3,7 @@ import { Clock } from "@hedron/clock";
 import { LFOInput } from "@hedron/lfo-input";
 import projectData from "./project.json";
 import "@fontsource/chivo-mono";
+import "@fontsource-variable/roboto-condensed";
 import "./style.css";
 import { getSketchModuleItems } from "./utils";
 

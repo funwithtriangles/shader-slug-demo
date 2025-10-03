@@ -53,6 +53,11 @@ Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
           [param.key]: types.boolean(param.defaultValue),
         });
         break;
+      case "string":
+        obj = sheet.object(`${sketch.title} / ${param.key}`, {
+          [param.key]: types.string(param.defaultValue),
+        });
+        break;
       case "rgb":
         const [r, g, b] = param.defaultValue;
         colorObj = sheet.object(`${sketch.title} / ${param.key}`, {

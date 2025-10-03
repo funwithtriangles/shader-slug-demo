@@ -47,6 +47,12 @@ export const shoutoutParamsConfig = [
     defaultValue: "Hello, world!",
   },
   {
+    key: "shoutout_message1",
+    title: "Message 2",
+    valueType: "string",
+    defaultValue: "Hello, world!",
+  },
+  {
     key: "shoutout_scrollSpeed",
     title: "Scroll Speed",
     defaultValue: 2,
@@ -67,6 +73,13 @@ export const shoutoutParamsConfig = [
     sliderMax: 1,
   },
   {
+    key: "shoutout_positionX1",
+    title: "Position X 2",
+    defaultValue: 0,
+    sliderMin: -1,
+    sliderMax: 1,
+  },
+  {
     key: "shoutout_positionY",
     title: "Position Y",
     defaultValue: 0,
@@ -74,8 +87,22 @@ export const shoutoutParamsConfig = [
     sliderMax: 0.5,
   },
   {
+    key: "shoutout_positionY1",
+    title: "Position Y 2",
+    defaultValue: 0,
+    sliderMin: -0.5,
+    sliderMax: 0.5,
+  },
+  {
     key: "shoutout_scale",
     title: "Scale",
+    defaultValue: 1,
+    sliderMin: 0.1,
+    sliderMax: 3,
+  },
+  {
+    key: "shoutout_scale1",
+    title: "Scale 2",
     defaultValue: 1,
     sliderMin: 0.1,
     sliderMax: 3,
@@ -91,6 +118,13 @@ export const shoutoutParamsConfig = [
   {
     key: "shoutout_opacity",
     title: "Opacity",
+    defaultValue: 1,
+    sliderMin: 0,
+    sliderMax: 1,
+  },
+  {
+    key: "shoutout_waterIntensity",
+    title: "Water Intensity",
     defaultValue: 1,
     sliderMin: 0,
     sliderMax: 1,

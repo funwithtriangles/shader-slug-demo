@@ -13,6 +13,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource-variable/roboto-condensed':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@fontsource/chivo-mono':
         specifier: ^5.2.6
         version: 5.2.6
@@ -205,6 +208,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/roboto-condensed@5.2.8':
+    resolution: {integrity: sha512-aIZ2kYSoJHkTI4z8x/PRgKX6Zb9TTtSE/u+fUYeiwL+5trP9rhYYEEeNjRttaMqRgoDHcSueArdRZ43wf/i2Kw==}
 
   '@fontsource/chivo-mono@5.2.6':
     resolution: {integrity: sha512-fs0bzPlzpatWrnEtEbXt49p5Jvb1SO6JMz+om8C6ImYLA7QUe4iF8Yt3cVWB4yNNIHPj9h3ylql05gXOScyiJw==}
@@ -544,6 +550,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.9':
     optional: true
+
+  '@fontsource-variable/roboto-condensed@5.2.8': {}
 
   '@fontsource/chivo-mono@5.2.6': {}
 
