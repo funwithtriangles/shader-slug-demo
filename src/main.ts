@@ -17,7 +17,7 @@ const theatreState = theatreJson as any;
 
 const project = getProject("Shader Slug", { state: theatreState });
 
-const AUTOPLAY = false;
+const AUTOPLAY = true;
 
 const sheet = project.sheet("Timeline");
 
