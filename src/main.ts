@@ -17,13 +17,15 @@ const theatreState = theatreJson as any;
 
 const project = getProject("Shader Slug", { state: theatreState });
 
+const AUTOPLAY = false;
+
 const sheet = project.sheet("Timeline");
 
 const button = document.querySelector("#play-button")!;
 
 if (import.meta.env.DEV) {
   sheet.sequence.attachAudio({ source: audio });
-} else {
+} else if (AUTOPLAY) {
   project.ready.then(async () => {
     await sheet.sequence.attachAudio({ source: audio });
     sheet.sequence.play();
@@ -40,7 +42,9 @@ onChange(sheet.sequence.pointer.playing, (playing) => {
   }
 });
 
-// button.classList.remove("hidden");
+if (!AUTOPLAY) {
+  button.classList.remove("hidden");
+}
 
 button.addEventListener("click", async () => {
   await project.ready;
