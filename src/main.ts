@@ -29,7 +29,7 @@ createAudioBuffer(audioUrl, audioContext).then(async (buffer) => {
     destinationNode,
   });
 
-  document.querySelector("#item-audio")!.classList.add("loaded");
+  loadingContainer.classList.add("hidden");
 });
 
 // the audio output.
@@ -55,7 +55,6 @@ button.addEventListener("click", async () => {
   sheet.sequence.play();
   clock.start(true);
   document.body.classList.add("playing");
-  button.classList.add("hidden");
 });
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
