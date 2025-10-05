@@ -2,9 +2,13 @@ import { clock, engineStore } from "./engine";
 import "@theatre/core";
 import { getProject, onChange, types } from "@theatre/core";
 import studio from "@theatre/studio";
-import audio from "./audio.mp3";
+import audioUrl from "./audio.mp3";
 
 import theatreJson from "./theatre.json";
+import { createAudioBuffer } from "./utils";
+
+const button = document.querySelector("#play-button")!;
+const loadingContainer = document.querySelector(".loading")!;
 
 const { updateNodeValue, ...state } = engineStore.getState();
 
@@ -12,26 +16,31 @@ if (import.meta.env.DEV) {
   studio.initialize();
 }
 
+document.querySelector("#item-code")!.classList.add("loaded");
+
+// create an AudioContext using the Audio API
+const audioContext = new AudioContext();
+
+createAudioBuffer(audioUrl, audioContext).then(async (buffer) => {
+  await project.ready;
+  await sheet.sequence.attachAudio({
+    source: buffer,
+    audioContext,
+    destinationNode,
+  });
+
+  document.querySelector("#item-audio")!.classList.add("loaded");
+});
+
+// the audio output.
+const destinationNode = audioContext.destination;
+
 // const theatreState = undefined;
 const theatreState = theatreJson as any;
 
 const project = getProject("Shader Slug", { state: theatreState });
 
-const AUTOPLAY = true;
-
 const sheet = project.sheet("Timeline");
-
-const button = document.querySelector("#play-button")!;
-
-if (import.meta.env.DEV) {
-  sheet.sequence.attachAudio({ source: audio });
-} else if (AUTOPLAY) {
-  project.ready.then(async () => {
-    await sheet.sequence.attachAudio({ source: audio });
-    sheet.sequence.play();
-    document.body.classList.add("playing");
-  });
-}
 
 onChange(sheet.sequence.pointer.playing, (playing) => {
   if (playing) {
@@ -42,13 +51,7 @@ onChange(sheet.sequence.pointer.playing, (playing) => {
   }
 });
 
-if (!AUTOPLAY) {
-  button.classList.remove("hidden");
-}
-
 button.addEventListener("click", async () => {
-  await project.ready;
-  await sheet.sequence.attachAudio({ source: audio });
   sheet.sequence.play();
   clock.start(true);
   document.body.classList.add("playing");

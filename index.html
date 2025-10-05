@@ -4,10 +4,83 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Polyop - Slug Chug</title>
+    <style>
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        inset: 0;
+        font-family: "Monaco", "Consolas", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+        font-size: 1.5rem;
+        background: black;
+        color: white;
+        z-index: 99;
+      }
+
+      .box {
+        font-size: 18px;
+        border: 1px solid white;
+        padding: 1rem;
+        text-align: left;
+      }
+
+      .box h3 {
+        margin: 0 0 0.5rem;
+        font-size: 24px;
+        animation: blink 0.6s infinite;
+      }
+
+      .loading ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      .loading li {
+        padding: 0;
+        list-style: none;
+        margin: 0;
+        position: relative;
+        opacity: 0.5;
+      }
+
+      .loading li.loaded {
+        opacity: 1;
+      }
+
+      .loading li.loaded::after {
+        content: " ✓";
+        position: absolute;
+        right: 0;
+      }
+    </style>
   </head>
   <body>
     <main class="container" id="root"></main>
-    <button id="play-button" class="hidden">Play</button>
+    <button id="play-button">Play</button>
+    <div class="loading">
+      <div class="box">
+        <h3>Loading</h3>
+        <ul>
+          <li id="item-code">Code</li>
+          <li id="item-slug">Slug</li>
+          <li id="item-audio">Audio</li>
+        </ul>
+      </div>
+    </div>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

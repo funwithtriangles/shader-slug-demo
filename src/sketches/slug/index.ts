@@ -161,6 +161,8 @@ export default class Slug {
       this.material.map = map;
       model.material = this.material;
 
+      document.querySelector("#item-slug")?.classList.add("loaded");
+
       let geometry = model.geometry;
       geometry = setupTriCenterAttributes(geometry);
       model.geometry = geometry;
