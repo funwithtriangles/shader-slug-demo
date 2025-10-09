@@ -1,16 +1,9 @@
-# `web-example`
+# `Polyop - Slug Chug`
 
-A simple example of how to use `@hedron/engine` in your web projects. It's still very low-level, directly using the engine to manipulate things. At some point later we might have a helper package to make things a bit more DX friendly.
+The easiest way to enjoy this project is to go to [polyop.uk/slugchug](https://polyop.uk/slugchug) and watch it there.
 
-Note: Currently no packages are published on npm, this web example only works inside of this monorepo. If you want to work on your own project, either copy this folder and start inside of this repo locally, or you should be able to use something like [pnpm link](https://pnpm.io/cli/link) to work in a separate repo.
+This code is a bit messy but I wanted to open source this project either way!
 
-### Run it
+## Run it locally
 
-Navigate to this directory in the repo and do:
-
-```
-pnpm install
-pnpm dev
-```
-
-This will start the vite project and run a webpage for your viewing pleasure!
+It might be a bit tricky to get this running locally. Currently none of the Hedron packages are published on npm, this project only works using [pnpm link](https://pnpm.io/cli/link). You'll need to pull Hedron and checkout using git so the codebase is matching with [this PR](https://github.com/nudibranchrecords/hedron/pull/559).
