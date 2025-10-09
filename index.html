@@ -6,6 +6,14 @@
     <title>Polyop - Slug Chug</title>
     <style>
 
+      body {
+        background: black;
+      }
+
+      h1 {
+        margin-top: 0;
+      }
+
       @keyframes blink {
         0%,
         100% {
@@ -25,7 +33,6 @@
         inset: 0;
         font-family: "Monaco", "Consolas", "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
         font-size: 1.5rem;
-        background: black;
         color: white;
         z-index: 99;
       }
@@ -33,8 +40,13 @@
       .box {
         font-size: 18px;
         border: 1px solid white;
-        padding: 1rem;
-        text-align: left;
+        padding: 2rem;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      .playing .box {
+        display: none;
       }
 
       .box h3 {
@@ -54,6 +66,11 @@
         margin: 0;
         position: relative;
         opacity: 0.5;
+        text-align: center;
+      }
+
+      .loading li::after {
+        content: " .";
       }
 
       .loading li.loaded {
@@ -62,25 +79,71 @@
 
       .loading li.loaded::after {
         content: " ✓";
-        position: absolute;
-        right: 0;
+      }
+
+      .credits {
+        font-size: 0.8em;
+      }
+
+      button {
+        z-index: 10;
+        padding: 10px 20px;
+        border: 2px solid white;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        text-transform: uppercase;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        pointer-events: none;
+        font-family: inherit;
+
+      }
+
+      button span {
+        animation: blink 0.5s infinite;
+      }
+
+      button.loaded {
+        pointer-events: auto;
+      }
+
+      button.loaded span {
+        animation: none;
+      }
+
+      ul {
+        display: flex;
+      }
+
+      li {
+        flex: 1;
       }
     </style>
   </head>
   <body>
     <main class="container" id="root"></main>
-    <button id="play-button">Play</button>
+
     <div class="loading">
       <div class="box">
-        <h3>Loading</h3>
+        <h1>Polyop - Slug Chug</h1>
+        <p>Presented in Berlin @ Deadline 2025</p>
+        <p class="credits">visuals: wanze, music: jacknode, slug model: ls3dfx</p>
+
+        <button id="play-button">
+          <span>Loading</span>
+        </button>
         <ul>
           <li id="item-code">Code</li>
           <li id="item-slug">Slug</li>
           <li id="item-audio">Audio</li>
         </ul>
-      </div>
-    </div>
+    </ul>
+  </div>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+</div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
 </html>

@@ -1,6 +1,6 @@
 import { clock, engineStore } from "./engine";
 import "@theatre/core";
-import { getProject, onChange, types } from "@theatre/core";
+import { getProject, onChange, types, val } from "@theatre/core";
 import studio from "@theatre/studio";
 import audioUrl from "./audio.mp3";
 
@@ -29,7 +29,9 @@ createAudioBuffer(audioUrl, audioContext).then(async (buffer) => {
     destinationNode,
   });
 
-  loadingContainer.classList.add("hidden");
+  document.querySelector("#item-audio")!.classList.add("loaded");
+  button.classList.add("loaded");
+  button.textContent = "Play";
 });
 
 // the audio output.
@@ -42,20 +44,57 @@ const project = getProject("Shader Slug", { state: theatreState });
 
 const sheet = project.sheet("Timeline");
 
+let isBeginning = true;
+
 onChange(sheet.sequence.pointer.playing, (playing) => {
   if (playing) {
-    clock.start(true);
-    button.classList.add("hidden");
+    clock.start(isBeginning);
+    isBeginning = false;
+    document.body.classList.add("playing");
   } else {
     clock.stop();
+    document.body.classList.remove("playing");
+
+    if (
+      val(sheet.sequence.pointer.position) ===
+      val(sheet.sequence.pointer.length)
+    ) {
+      isBeginning = true;
+      button.textContent = "Replay";
+    }
   }
 });
 
-button.addEventListener("click", async () => {
+const pause = () => {
+  sheet.sequence.pause();
+};
+
+const play = () => {
+  button.textContent = "Play";
   sheet.sequence.play();
-  clock.start(true);
-  document.body.classList.add("playing");
+};
+
+button.addEventListener("click", async (e) => {
+  e.stopPropagation();
+
+  if (isBeginning) {
+    sheet.sequence.position = 0;
+  }
+  play();
 });
+
+document.body.addEventListener("keydown", (e) => {
+  if (e.key === " ") {
+    e.stopPropagation();
+    console.log(val(sheet.sequence.pointer.playing));
+    if (val(sheet.sequence.pointer.playing)) {
+      pause();
+    } else {
+      play();
+    }
+  }
+});
+document.body.addEventListener("click", pause);
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
   sketch.paramIds.forEach((paramId) => {
