@@ -72,7 +72,11 @@ const pause = () => {
 };
 
 const play = async () => {
-  await document.body.requestFullscreen();
+  const requestFullscreen =
+    document.body.requestFullscreen || document.body.webkitRequestFullscreen;
+  if (requestFullscreen) {
+    await requestFullscreen.call(document.body);
+  }
   button.textContent = "Play";
   sheet.sequence.play();
 };
