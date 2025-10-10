@@ -12,6 +12,8 @@ const loadingContainer = document.querySelector(".loading")!;
 
 const { updateNodeValue, ...state } = engineStore.getState();
 
+let aspectRatio = window.innerWidth / window.innerHeight;
+
 if (import.meta.env.DEV) {
   studio.initialize();
 }
@@ -96,8 +98,6 @@ document.body.addEventListener("keydown", (e) => {
   }
 });
 document.body.addEventListener("click", pause);
-
-let aspectRatio = window.innerWidth / window.innerHeight;
 
 window.addEventListener("resize", () => {
   aspectRatio = window.innerWidth / window.innerHeight;
