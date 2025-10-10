@@ -69,7 +69,8 @@ const pause = () => {
   sheet.sequence.pause();
 };
 
-const play = () => {
+const play = async () => {
+  await document.body.requestFullscreen();
   button.textContent = "Play";
   sheet.sequence.play();
 };
@@ -95,6 +96,12 @@ document.body.addEventListener("keydown", (e) => {
   }
 });
 document.body.addEventListener("click", pause);
+
+let aspectRatio = window.innerWidth / window.innerHeight;
+
+window.addEventListener("resize", () => {
+  aspectRatio = window.innerWidth / window.innerHeight;
+});
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
   sketch.paramIds.forEach((paramId) => {
@@ -140,7 +147,12 @@ Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
     }
 
     obj?.onValuesChange((v) => {
-      updateNodeValue(paramId, v[param.key]);
+      let value = v[param.key];
+      if (param.key === "orbitRad" && aspectRatio < 1) {
+        // quick hack to get slug in shot on mobile
+        value *= 2.5;
+      }
+      updateNodeValue(paramId, value);
     });
   });
 });
