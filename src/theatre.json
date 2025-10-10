@@ -599,7 +599,7 @@
       },
       "sequence": {
         "subUnitsPerUnit": 30,
-        "length": 316.26,
+        "length": 303.71,
         "type": "PositionalSequence",
         "tracksByObject": {
           "camera / rotSpeed": {
@@ -9431,6 +9431,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "f1FnOUv3CAgHeYXl",
     "-cv0tstN2ervwrTt",
     "8olrGMqRPwFVuHHL",
     "wF1Mswl9Yc7wi7uZ",
