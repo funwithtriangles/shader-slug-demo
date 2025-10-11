@@ -8,7 +8,11 @@ import theatreJson from "./theatre.json";
 import { createAudioBuffer } from "./utils";
 
 const button = document.querySelector("#play-button")!;
-const loadingContainer = document.querySelector(".loading")!;
+
+// might help with iOS audio playback when silent mode is on
+if ("audioSession" in navigator) {
+  navigator.audioSession.type = "playback";
+}
 
 const { updateNodeValue, ...state } = engineStore.getState();
 
