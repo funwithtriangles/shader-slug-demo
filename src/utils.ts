@@ -1,4 +1,4 @@
-import { processConfig } from "@hedron/engine";
+import { processConfig } from "@hedron-gl/engine";
 
 // TODO: This file should be exported as a helper package somewhere (vite plugin?)
 
@@ -36,7 +36,7 @@ export const getSketchModuleItems = () =>
 
 export const createAudioBuffer = async (
   url: string,
-  audioContext: AudioContext
+  audioContext: AudioContext,
 ) => {
   const response = await fetch(url);
   const arrayBuffer = await response.arrayBuffer();

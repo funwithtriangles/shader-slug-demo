@@ -1,6 +1,5 @@
 {
-  "name": "@hedron/web-example",
-  "version": "1.0.0-alpha.2",
+  "name": "shader-slug-demo",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,9 +9,9 @@
   "dependencies": {
     "@fontsource-variable/roboto-condensed": "^5.2.8",
     "@fontsource/chivo-mono": "^5.2.6",
-    "@hedron/clock": "workspace:^",
-    "@hedron/engine": "workspace:^",
-    "@hedron/lfo-input": "workspace:^",
+    "@hedron-gl/clock": "1.0.0-alpha.4",
+    "@hedron-gl/engine": "1.0.0-alpha.4",
+    "@hedron-gl/lfo-input": "1.0.0-alpha.4",
     "@theatre/core": "^0.7.2",
     "@theatre/studio": "^0.7.2",
     "three": "^0.178.0",

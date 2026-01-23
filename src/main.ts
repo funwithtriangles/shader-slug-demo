@@ -6,6 +6,7 @@ import audioUrl from "./audio.mp3";
 
 import theatreJson from "./theatre.json";
 import { createAudioBuffer } from "./utils";
+import { Param } from "@hedron-gl/engine";
 
 const button = document.querySelector("#play-button")!;
 
@@ -112,8 +113,8 @@ window.addEventListener("resize", () => {
 });
 
 Object.entries(state.sketches).forEach(([sketchId, sketch]) => {
-  sketch.paramIds.forEach((paramId) => {
-    const param = state.nodes[paramId];
+  sketch.nodeIds.forEach((paramId) => {
+    const param = state.nodes[paramId] as Param;
 
     let obj;
     let colorObj;

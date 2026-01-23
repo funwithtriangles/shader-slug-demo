@@ -1,4 +1,0 @@
-overrides:
-  '@hedron/clock': link:../hedron/packages/clock
-  '@hedron/engine': link:../hedron/packages/engine
-  '@hedron/lfo-input': link:../hedron/packages/lfo-input
