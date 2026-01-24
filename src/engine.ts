@@ -4,6 +4,8 @@ import { LFOInput } from "@hedron-gl/lfo-input";
 import projectData from "./project.json";
 import "@fontsource/chivo-mono";
 import "@fontsource-variable/roboto-condensed";
+import "./variables.css";
+import "@hedron-gl/ui-core/modules.css";
 import "./style.css";
 import { getSketchModuleItems } from "./utils";
 

@@ -1,0 +1,2 @@
+overrides:
+  '@hedron-gl/ui-core': link:../hedron/packages/ui-core
