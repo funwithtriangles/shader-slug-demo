@@ -62,7 +62,9 @@ function App() {
         buttonText={buttonText}
         onPlayClick={handlePlayClick}
       />
-      <Controls isOpen={controlsOpen} onToggle={handleToggleControls} />
+      {isPlaying && (
+        <Controls isOpen={controlsOpen} onToggle={handleToggleControls} />
+      )}
     </div>
   );
 }

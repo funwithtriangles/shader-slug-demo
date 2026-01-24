@@ -1,5 +1,5 @@
-import { IoSettingsSharp } from "react-icons/io5";
 import c from "./controls.module.css";
+import { PiFaders } from "react-icons/pi";
 
 interface ControlsProps {
   isOpen: boolean;
@@ -14,7 +14,7 @@ function Controls({ isOpen, onToggle }: ControlsProps) {
         onClick={onToggle}
         aria-label="Toggle controls"
       >
-        <IoSettingsSharp />
+        <PiFaders />
       </button>
 
       {isOpen && (
