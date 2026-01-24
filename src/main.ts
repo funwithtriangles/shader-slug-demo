@@ -7,6 +7,10 @@ import audioUrl from "./audio.mp3";
 import theatreJson from "./theatre.json";
 import { createAudioBuffer } from "./utils";
 import { Param } from "@hedron-gl/engine";
+import { mountControls } from "./components/Controls";
+
+// Mount React controls
+mountControls();
 
 const button = document.querySelector("#play-button")!;
 
