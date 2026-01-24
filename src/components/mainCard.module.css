@@ -1,18 +1,21 @@
-.loading {
+/* Main card styles */
+.mainCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: absolute;
   inset: 0;
-  font-family:
-    "Monaco", "Consolas", "Courier New", Courier, "Lucida Sans Typewriter",
-    "Lucida Typewriter", monospace;
+  font-family: "Monaco", "Consolas", "Courier New", Courier, monospace;
   font-size: 1.5rem;
   color: white;
   z-index: 99;
   padding: 1rem;
   pointer-events: none;
+}
+
+.hidden {
+  display: none;
 }
 
 .box {
@@ -31,8 +34,12 @@
   }
 }
 
-.hidden {
-  display: none;
+.title {
+  margin-top: 0;
+}
+
+.credits {
+  font-size: 0.8em;
 }
 
 .portraitWarning {
@@ -45,12 +52,14 @@
   }
 }
 
-.title {
-  margin-top: 0;
-}
-
-.credits {
-  font-size: 0.8em;
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .playButton {
@@ -70,16 +79,6 @@
 
 .playButton.loaded {
   pointer-events: auto;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
 }
 
 .playButton span {
@@ -103,7 +102,6 @@
   padding: 0;
   list-style: none;
   margin: 0;
-  position: relative;
   opacity: 0.5;
   text-align: center;
 }

@@ -26,7 +26,7 @@ function App() {
 
   const isLoaded = slugLoaded && audioLoaded;
 
-  // Expose setters to main.ts
+  // Expose setters to rest of app (e.g. sketches and main.ts)
   useEffect(() => {
     appSetters.setSlugLoaded = setSlugLoaded;
     appSetters.setAudioLoaded = setAudioLoaded;
