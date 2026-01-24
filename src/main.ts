@@ -1,4 +1,4 @@
-import { clock, engineStore } from "./engine";
+import { clock, engine, engineStore } from "./engine";
 import "@theatre/core";
 import { getProject, onChange, types, val } from "@theatre/core";
 import studio from "@theatre/studio";
@@ -7,9 +7,15 @@ import audioUrl from "./audio.mp3";
 import theatreJson from "./theatre.json";
 import { createAudioBuffer } from "./utils";
 import { Param } from "@hedron-gl/engine";
-import { appCallbacks, appSetters } from "./components/App";
+import { appCallbacks, appSetters, engineRef } from "./components/App";
 
 export function initEngine() {
+  // Populate engine reference for React components
+  engineRef.engine = engine;
+  engineRef.engineStore = engineStore;
+  engineRef.clock = clock;
+  appSetters.setEngineReady();
+
   // might help with iOS audio playback when silent mode is on
   if ("audioSession" in navigator) {
     navigator.audioSession.type = "playback";
@@ -20,7 +26,8 @@ export function initEngine() {
   let aspectRatio = window.innerWidth / window.innerHeight;
 
   if (import.meta.env.DEV) {
-    studio.initialize();
+    // disabling completely because vite env vars messed up over network (e.g. on mobile)
+    // studio.initialize();
   }
 
   // create an AudioContext using the Audio API

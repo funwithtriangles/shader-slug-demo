@@ -2,6 +2,9 @@ import { StrictMode, useState, useCallback, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import MainCard from "./MainCard";
 import Controls from "./Controls";
+import type { HedronEngine } from "@hedron-gl/engine";
+import type { Clock } from "@hedron-gl/clock";
+import { EngineStoreProvider } from "@hedron-gl/ui-core";
 
 // Callbacks that main.ts will set
 export const appCallbacks = {
@@ -15,6 +18,20 @@ export const appSetters = {
   setAudioLoaded: (_: boolean) => {},
   setIsPlaying: (_: boolean) => {},
   setButtonText: (_: string) => {},
+  setEngineReady: () => {},
+};
+
+// Engine reference - populated by main.ts when engine loads
+export type EngineRef = {
+  engine: HedronEngine | null;
+  engineStore: ReturnType<HedronEngine["getStore"]> | null;
+  clock: Clock | null;
+};
+
+export const engineRef: EngineRef = {
+  engine: null,
+  engineStore: null,
+  clock: null,
 };
 
 function App() {
@@ -23,6 +40,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [buttonText, setButtonText] = useState("Loading");
   const [controlsOpen, setControlsOpen] = useState(false);
+  const [engineReady, setEngineReady] = useState(false);
 
   const isLoaded = slugLoaded && audioLoaded;
 
@@ -32,6 +50,7 @@ function App() {
     appSetters.setAudioLoaded = setAudioLoaded;
     appSetters.setIsPlaying = setIsPlaying;
     appSetters.setButtonText = setButtonText;
+    appSetters.setEngineReady = () => setEngineReady(true);
   }, []);
 
   const handleBodyClick = useCallback(() => {
@@ -52,20 +71,22 @@ function App() {
   }, []);
 
   return (
-    <div onClick={handleBodyClick} style={{ position: "fixed", inset: 0 }}>
-      <MainCard
-        codeLoaded={true}
-        slugLoaded={slugLoaded}
-        audioLoaded={audioLoaded}
-        isLoaded={isLoaded}
-        isPlaying={isPlaying}
-        buttonText={buttonText}
-        onPlayClick={handlePlayClick}
-      />
-      {isPlaying && (
-        <Controls isOpen={controlsOpen} onToggle={handleToggleControls} />
-      )}
-    </div>
+    <EngineStoreProvider value={engineRef.engineStore}>
+      <div onClick={handleBodyClick} style={{ position: "fixed", inset: 0 }}>
+        <MainCard
+          codeLoaded={true}
+          slugLoaded={slugLoaded}
+          audioLoaded={audioLoaded}
+          isLoaded={isLoaded}
+          isPlaying={isPlaying}
+          buttonText={buttonText}
+          onPlayClick={handlePlayClick}
+        />
+        {isPlaying && (
+          <Controls isOpen={controlsOpen} onToggle={handleToggleControls} />
+        )}
+      </div>
+    </EngineStoreProvider>
   );
 }
 

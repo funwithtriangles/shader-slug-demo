@@ -1,6 +1,10 @@
 import c from "./controls.module.css";
 import { PiFaders } from "react-icons/pi";
 
+import { ControlGrid, NodeContainer } from "@hedron-gl/ui-core";
+
+const CRUSH_ID = "12617f97ba0acdde";
+
 interface ControlsProps {
   isOpen: boolean;
   onToggle: (e: React.MouseEvent) => void;
@@ -19,8 +23,9 @@ function Controls({ isOpen, onToggle }: ControlsProps) {
 
       {isOpen && (
         <div className={c.panel} onClick={(e) => e.stopPropagation()}>
-          <h2>Controls</h2>
-          {/* Add your controls here */}
+          <ControlGrid>
+            <NodeContainer nodeId={CRUSH_ID} layout="vertical" />
+          </ControlGrid>
         </div>
       )}
     </div>
