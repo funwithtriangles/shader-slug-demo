@@ -1,28 +1,29 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { IoSettingsSharp } from "react-icons/io5";
 import c from "./controls.module.css";
 
-function Controls() {
-  return (
-    <div className={c.controls}>
-      <h2>Controls</h2>
-      {/* Add your controls here */}
-    </div>
-  );
+interface ControlsProps {
+  isOpen: boolean;
+  onToggle: (e: React.MouseEvent) => void;
 }
 
-export function mountControls() {
-  const container = document.getElementById("controls");
-  if (!container) {
-    console.error("Controls container not found");
-    return;
-  }
+function Controls({ isOpen, onToggle }: ControlsProps) {
+  return (
+    <div className={c.controls}>
+      <button
+        className={c.toggleButton}
+        onClick={onToggle}
+        aria-label="Toggle controls"
+      >
+        <IoSettingsSharp />
+      </button>
 
-  const root = createRoot(container);
-  root.render(
-    <StrictMode>
-      <Controls />
-    </StrictMode>,
+      {isOpen && (
+        <div className={c.panel} onClick={(e) => e.stopPropagation()}>
+          <h2>Controls</h2>
+          {/* Add your controls here */}
+        </div>
+      )}
+    </div>
   );
 }
 

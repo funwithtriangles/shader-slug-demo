@@ -1,6 +1,7 @@
 import slugModelUrl from "./slug.glb";
 
 import { GLTF, GLTFLoader, RGBELoader } from "three-stdlib";
+import { appSetters } from "../../components/App";
 
 const gltfLoader = new GLTFLoader();
 const rgbeLoader = new RGBELoader();
@@ -118,21 +119,21 @@ export default class Slug {
         stripeTime: this.uniforms.stripesTime,
         stripeLength: this.uniforms.stripeLength,
         stripeOffset: this.uniforms.stripeOffset,
-      }).mul(this.uniforms.stripesIntensity)
+      }).mul(this.uniforms.stripesIntensity),
     );
 
     matCol = matCol.add(
       ringsTexture({
         ringTime: this.uniforms.ringTime,
-      }).mul(this.uniforms.ringsIntensity)
+      }).mul(this.uniforms.ringsIntensity),
     ).r;
 
     matCol = vec4(
       mix(
         vec4(this.uniforms.colorA, this.uniforms.colorAOpacity),
         vec4(this.uniforms.colorB, this.uniforms.colorBOpacity),
-        matCol
-      )
+        matCol,
+      ),
     );
 
     this.material.emissiveNode = Fn(() => {
@@ -161,7 +162,7 @@ export default class Slug {
       this.material.map = map;
       model.material = this.material;
 
-      document.querySelector("#item-slug")?.classList.add("loaded");
+      appSetters.setSlugLoaded(true);
 
       let geometry = model.geometry;
       geometry = setupTriCenterAttributes(geometry);

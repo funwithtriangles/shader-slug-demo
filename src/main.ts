@@ -7,12 +7,10 @@ import audioUrl from "./audio.mp3";
 import theatreJson from "./theatre.json";
 import { createAudioBuffer } from "./utils";
 import { Param } from "@hedron-gl/engine";
-import { mountControls } from "./components/Controls";
+import { mountApp, appCallbacks, appSetters } from "./components/App";
 
-// Mount React controls
-mountControls();
-
-const button = document.querySelector("#play-button")!;
+// Mount React app
+mountApp();
 
 // might help with iOS audio playback when silent mode is on
 if ("audioSession" in navigator) {
@@ -27,8 +25,6 @@ if (import.meta.env.DEV) {
   studio.initialize();
 }
 
-document.querySelector("#item-code")!.classList.add("loaded");
-
 // create an AudioContext using the Audio API
 const audioContext = new AudioContext();
 
@@ -40,9 +36,8 @@ createAudioBuffer(audioUrl, audioContext).then(async (buffer) => {
     destinationNode,
   });
 
-  document.querySelector("#item-audio")!.classList.add("loaded");
-  button.classList.add("loaded");
-  button.textContent = "Play";
+  appSetters.setAudioLoaded(true);
+  appSetters.setButtonText("Play");
 });
 
 // the audio output.
@@ -61,17 +56,17 @@ onChange(sheet.sequence.pointer.playing, (playing) => {
   if (playing) {
     clock.start(isBeginning);
     isBeginning = false;
-    document.body.classList.add("playing");
+    appSetters.setIsPlaying(true);
   } else {
     clock.stop();
-    document.body.classList.remove("playing");
+    appSetters.setIsPlaying(false);
 
     if (
       val(sheet.sequence.pointer.position) ===
       val(sheet.sequence.pointer.length)
     ) {
       isBeginning = true;
-      button.textContent = "Replay";
+      appSetters.setButtonText("Replay");
     }
   }
 });
@@ -86,18 +81,16 @@ const play = async () => {
   if (requestFullscreen) {
     await requestFullscreen.call(document.body);
   }
-  button.textContent = "Play";
-  sheet.sequence.play();
-};
-
-button.addEventListener("click", async (e) => {
-  e.stopPropagation();
-
+  appSetters.setButtonText("Play");
   if (isBeginning) {
     sheet.sequence.position = 0;
   }
-  play();
-});
+  sheet.sequence.play();
+};
+
+// Set up callbacks for React
+appCallbacks.onPlay = play;
+appCallbacks.onPause = pause;
 
 document.body.addEventListener("keydown", (e) => {
   if (e.key === " ") {
@@ -110,7 +103,6 @@ document.body.addEventListener("keydown", (e) => {
     }
   }
 });
-document.body.addEventListener("click", pause);
 
 window.addEventListener("resize", () => {
   aspectRatio = window.innerWidth / window.innerHeight;
