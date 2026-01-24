@@ -1,17 +1,18 @@
 import { useEffect, useRef } from "react";
-import { performanceMonitor } from "../engine";
+import { engineRef } from "./App";
 
 export const PerformanceStats = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.appendChild(performanceMonitor.dom);
-      performanceMonitor.dom.setAttribute("style", "");
+    const monitor = engineRef.performanceMonitor;
+    if (ref.current && monitor) {
+      ref.current.appendChild(monitor.dom);
+      monitor.dom.setAttribute("style", "");
     }
 
     return () => {
-      performanceMonitor.dom.remove();
+      monitor?.dom.remove();
     };
   }, []);
 

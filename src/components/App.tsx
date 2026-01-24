@@ -5,7 +5,6 @@ import Controls from "./Controls";
 import type { HedronEngine } from "@hedron-gl/engine";
 import type { Clock } from "@hedron-gl/clock";
 import { EngineStoreProvider } from "@hedron-gl/ui-core";
-import { PerformanceStats } from "./PerformanceStats";
 
 // Callbacks that main.ts will set
 export const appCallbacks = {
@@ -87,7 +86,6 @@ function App() {
           <Controls isOpen={controlsOpen} onToggle={handleToggleControls} />
         )}
       </div>
-      {controlsOpen && <PerformanceStats />}
     </EngineStoreProvider>
   );
 }

@@ -8,9 +8,6 @@ import "./variables.css";
 import "@hedron-gl/ui-core/modules.css";
 import "./style.css";
 import { getSketchModuleItems } from "./utils";
-import Stats from "three/examples/jsm/libs/stats.module.js";
-
-export const performanceMonitor = new Stats();
 
 // Imported from the Hedron project save file (JSON)
 const engineData = projectData.engine as unknown as EngineData;
@@ -21,8 +18,6 @@ clock.bpm = 99;
 
 // Initialize the engine with the clock
 export const engine = new HedronEngine({
-  onFrameStart: performanceMonitor.begin,
-  onFrameEnd: performanceMonitor.end,
   rendererType: "webgpu",
   canvasSizeMode: "fillContainer",
   clock,
