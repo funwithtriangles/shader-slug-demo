@@ -23,6 +23,8 @@ export default defineConfig({
         "node_modules/three/build/three.tsl.js",
       ),
     },
+    // Dedupe React to prevent multiple instances when using linked packages
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
   },
   assetsInclude: ["**/*.glb", "**/*.gltf", "**/*.hdr", "**/*.mp3"],
 });
